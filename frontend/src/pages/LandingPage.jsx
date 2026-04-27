@@ -232,9 +232,10 @@ const LandingPage = () => {
                   key={i} 
                   variants={itemVariants}
                   whileHover={{ y: -10, backgroundColor: "#222" }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
                   className="bg-[#1a1a1a] p-8 rounded-[1.5rem] border border-white/5 hover:border-white/20 transition-all group cursor-default"
                 >
-                  <h4 className="text-2xl font-black text-primary-500 mb-4 group-hover:scale-105 transition-transform">{item.title}</h4>
+                  <h4 className="text-2xl font-black text-primary-500 mb-4">{item.title}</h4>
                   <p className="text-gray-400 leading-relaxed">{item.desc}</p>
                 </motion.div>
               ))}
