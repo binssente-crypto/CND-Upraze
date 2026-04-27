@@ -27,7 +27,7 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-dark-bg text-gray-100 font-space antialiased;
+    @apply bg-dark-bg text-gray-100 font-space antialiased select-none;
   }
 }
 

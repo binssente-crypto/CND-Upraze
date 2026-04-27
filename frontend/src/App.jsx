@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
 import LoginPage from './pages/Auth/LoginPage'
@@ -17,6 +18,19 @@ import SupportCenter from './pages/Support/SupportCenter'
 import AdminInquiries from './pages/Admin/AdminInquiries'
 
 function App() {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Block Ctrl+C (Copy) and Ctrl+A (Select All)
+      if (e.ctrlKey && (e.key === 'c' || e.key === 'a' || e.key === 'C' || e.key === 'A')) {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
