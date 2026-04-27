@@ -8,6 +8,7 @@ import {
   Image as ImageIcon, 
   QrCode, 
   LayoutDashboard, 
+  LayoutGrid,
   Settings, 
   LogOut, 
   Menu, 
@@ -22,6 +23,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const sidebarItems = [
   { icon: LayoutDashboard, label: 'Overview', path: '/dashboard' },
+  { icon: LayoutGrid, label: 'Modules', path: '/dashboard/modules' },
   { icon: Headphones, label: 'Support Center', path: '/dashboard/support' },
   { icon: Bot, label: 'AI Assistant', path: '/dashboard/ai-assistant' },
   { icon: LineChart, label: 'Forecasting', path: '/dashboard/forecasting' },

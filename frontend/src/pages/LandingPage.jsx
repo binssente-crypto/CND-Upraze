@@ -150,6 +150,7 @@ const LandingPage = () => {
             <motion.button 
               whileHover={{ x: 10 }}
               className="flex items-center gap-3 text-primary-500 font-bold group"
+              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
             >
               View All Modules <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </motion.button>
@@ -173,16 +174,16 @@ const LandingPage = () => {
       </section>
 
       {/* Mission & Vision Section (Orange) - As per 5.jpg & 6.jpg */}
-      <section id="about" className="bg-primary-500 py-32 px-12 overflow-hidden">
+      <section id="about" className="bg-primary-500 py-16 px-12 overflow-hidden">
         <div className="max-w-[1400px] mx-auto text-white">
           <motion.div 
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-right mb-20"
+            className="text-right mb-12"
           >
-            <h2 className="text-5xl font-black uppercase tracking-tight">OUR MISSION AND VISION</h2>
+            <h2 className="text-4xl font-black uppercase tracking-tight">OUR MISSION AND VISION</h2>
           </motion.div>
 
           <motion.div 
@@ -190,16 +191,16 @@ const LandingPage = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid md:grid-cols-2 gap-12 mb-32"
+            className="grid md:grid-cols-2 gap-8 mb-16"
           >
-            <motion.div variants={itemVariants} className="bg-[#1a1a1a] p-12 rounded-[2.5rem] shadow-xl">
+            <motion.div variants={itemVariants} className="bg-[#1a1a1a] p-8 rounded-[2rem] shadow-xl">
               <h3 className="text-4xl font-black text-primary-500 mb-8">Mission</h3>
               <p className="text-xl leading-relaxed text-gray-300">
                 Our mission is to empower individuals to make smarter and more informed decisions through the use of intuitive AI-powered tools and solutions that simplify everyday planning, creativity, and organization.
               </p>
             </motion.div>
-            <motion.div variants={itemVariants} className="bg-[#1a1a1a] p-12 rounded-[2.5rem] shadow-xl">
-              <h3 className="text-4xl font-black text-primary-500 mb-8 text-right">Vision</h3>
+            <motion.div variants={itemVariants} className="bg-[#1a1a1a] p-8 rounded-[2rem] shadow-xl">
+              <h3 className="text-3xl font-black text-primary-500 mb-6 text-right">Vision</h3>
               <p className="text-xl leading-relaxed text-gray-300 text-right">
                 Our vision is to become the leading platform for intelligent and AI-powered guidance, where technology and creativity come together to inspire smarter and more fulfilling lives.
               </p>
@@ -211,7 +212,7 @@ const LandingPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-5xl font-black uppercase italic"
+              className="text-4xl font-black uppercase italic"
             >
               OUR CND PROTOCOL
             </motion.h2>
@@ -231,9 +232,9 @@ const LandingPage = () => {
                   key={i} 
                   variants={itemVariants}
                   whileHover={{ y: -10, backgroundColor: "#222" }}
-                  className="bg-[#1a1a1a] p-12 rounded-[2rem] border border-white/5 hover:border-white/20 transition-all group cursor-default"
+                  className="bg-[#1a1a1a] p-8 rounded-[1.5rem] border border-white/5 hover:border-white/20 transition-all group cursor-default"
                 >
-                  <h4 className="text-3xl font-black text-primary-500 mb-6 group-hover:scale-105 transition-transform">{item.title}</h4>
+                  <h4 className="text-2xl font-black text-primary-500 mb-4 group-hover:scale-105 transition-transform">{item.title}</h4>
                   <p className="text-gray-400 leading-relaxed">{item.desc}</p>
                 </motion.div>
               ))}
@@ -243,13 +244,13 @@ const LandingPage = () => {
       </section>
 
       {/* Services Section (Pills) - As per 7.jpg */}
-      <section id="services" className="py-40 px-12 text-center bg-white font-space">
+      <section id="services" className="py-20 px-12 text-center bg-white font-space">
         <div className="max-w-[1400px] mx-auto">
           <motion.h2 
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="text-6xl font-black uppercase mb-32 tracking-tighter"
+            className="text-4xl font-black uppercase mb-16 tracking-tighter"
           >
             OUR SERVICES
           </motion.h2>
@@ -266,7 +267,7 @@ const LandingPage = () => {
                 key={i}
                 variants={itemVariants}
                 whileHover={{ y: -15, scale: 1.02 }}
-                className="bg-primary-500 p-6 pt-12 pb-12 rounded-[4rem] flex flex-col items-center justify-center text-white shadow-xl hover:shadow-primary-500/30 transition-all cursor-default h-[400px]"
+                className="bg-primary-500 p-6 pt-8 pb-8 rounded-[3rem] flex flex-col items-center justify-center text-white shadow-xl hover:shadow-primary-500/30 transition-all cursor-default h-[300px]"
               >
                 <motion.div 
                   animate={{ y: [0, -5, 0] }}
@@ -284,13 +285,13 @@ const LandingPage = () => {
       </section>
 
       {/* Why Work With Us Section (Horizontal Pills) - As per 8.jpg */}
-      <section className="bg-[#1a1a1a] py-40 px-12 text-center font-space overflow-hidden">
+      <section className="bg-[#1a1a1a] py-20 px-12 text-center font-space overflow-hidden">
         <div className="max-w-[1400px] mx-auto text-white">
           <motion.h2 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-6xl font-black uppercase mb-32 tracking-tighter"
+            className="text-4xl font-black uppercase mb-16 tracking-tighter"
           >
             WHY WORK WITH US?
           </motion.h2>
@@ -311,9 +312,9 @@ const LandingPage = () => {
                 key={i}
                 variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
-                className="bg-primary-500 p-10 rounded-[3rem] flex flex-col items-center justify-center text-[#1a1a1a] shadow-2xl"
+                className="bg-primary-500 p-6 rounded-[2rem] flex flex-col items-center justify-center text-[#1a1a1a] shadow-2xl"
               >
-                <h4 className="text-xl font-black mb-4">{item.title}</h4>
+                <h4 className="text-lg font-black mb-2">{item.title}</h4>
                 <p className="text-sm font-bold max-w-4xl text-[#1a1a1a]/80 font-inter">{item.desc}</p>
               </motion.div>
             ))}

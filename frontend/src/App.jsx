@@ -4,6 +4,7 @@ import LoginPage from './pages/Auth/LoginPage'
 import RegisterPage from './pages/Auth/RegisterPage'
 import DashboardLayout from './layouts/DashboardLayout'
 import DashboardHome from './pages/Dashboard/DashboardHome'
+import Modules from './pages/Dashboard/Modules'
 import BillingPage from './pages/Dashboard/BillingPage'
 import AdminDashboard from './pages/Admin/AdminDashboard'
 import DevDebugger from './pages/Dashboard/DevDebugger'
@@ -24,6 +25,7 @@ function App() {
       
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<DashboardHome />} />
+        <Route path="modules" element={<Modules />} />
         <Route path="billing" element={<BillingPage />} />
         <Route path="admin" element={<AdminDashboard />} />
         <Route path="admin/inquiries" element={<AdminInquiries />} />
