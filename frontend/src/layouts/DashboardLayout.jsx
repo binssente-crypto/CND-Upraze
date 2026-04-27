@@ -14,12 +14,15 @@ import {
   X, 
   Bell, 
   User as UserIcon,
-  CreditCard
+  CreditCard,
+  Headphones,
+  ShieldAlert
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const sidebarItems = [
   { icon: LayoutDashboard, label: 'Overview', path: '/dashboard' },
+  { icon: Headphones, label: 'Support Center', path: '/dashboard/support' },
   { icon: Bot, label: 'AI Assistant', path: '/dashboard/ai-assistant' },
   { icon: LineChart, label: 'Forecasting', path: '/dashboard/forecasting' },
   { icon: Box, label: '3D Manipulation', path: '/dashboard/3d-manipulation' },
@@ -78,7 +81,14 @@ const DashboardLayout = () => {
               ))}
             </nav>
 
-            <div className="p-4 mt-auto border-t border-dark-border">
+            <div className="p-4 mt-auto border-t border-dark-border space-y-1">
+              <Link 
+                to="/dashboard/admin/inquiries" 
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all"
+              >
+                <ShieldAlert className="w-5 h-5 text-primary-500" />
+                <span className="font-bold">Support Inbox</span>
+              </Link>
               <Link 
                 to="/dashboard/billing" 
                 className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all"

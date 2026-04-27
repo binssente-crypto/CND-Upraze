@@ -6,16 +6,27 @@ use App\Http\Controllers\Features\ForecastingController;
 use App\Http\Controllers\Features\ImageRecognitionController;
 use App\Http\Controllers\Features\ThreeDManipulationController;
 use App\Http\Controllers\Features\QRCodeController;
+use App\Http\Controllers\SupportInquiryController;
 use Illuminate\Support\Facades\Route;
 
 // Auth Routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// Public Support Routes
+Route::post('/support/inquiries', [SupportInquiryController::class, 'store']);
+
 // Protected Routes
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+
+    // Support Routes
+    Route::get('/support/inquiries', [SupportInquiryController::class, 'userInquiries']);
+    Route::get('/support/admin/inquiries', [SupportInquiryController::class, 'index']);
+    Route::get('/support/inquiries/{supportInquiry}', [SupportInquiryController::class, 'show']);
+    Route::post('/support/inquiries/{supportInquiry}/messages', [SupportInquiryController::class, 'addMessage']);
+    Route::post('/support/inquiries/{supportInquiry}/close', [SupportInquiryController::class, 'close']);
 
     // Features
     Route::prefix('features')->group(function () {
