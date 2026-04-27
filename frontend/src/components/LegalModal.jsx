@@ -68,7 +68,7 @@ const LegalModal = ({ isOpen, onClose, type }) => {
                   {active.icon}
                 </div>
                 <div>
-                  <h2 className="text-3xl font-black uppercase tracking-tight">{active.title}</h2>
+                  <h2 className="text-3xl font-black uppercase tracking-tight text-white">{active.title}</h2>
                   <p className="text-xs text-gray-500 font-bold uppercase tracking-widest mt-1">Last Updated: April 2026</p>
                 </div>
               </div>
