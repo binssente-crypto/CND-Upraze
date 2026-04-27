@@ -14,6 +14,7 @@ import {
   Rocket
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import LegalModal from '../components/LegalModal';
 
 const services = [
   { icon: <Bot className="w-10 h-10" />, title: 'AI ASSISTANCE', desc: 'An intelligent system that automates tasks, enhances decision making, and adapts to user needs.' },
@@ -24,6 +25,8 @@ const services = [
 ];
 
 const LandingPage = () => {
+  const [legalModal, setLegalModal] = React.useState({ isOpen: false, type: 'privacy' });
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -334,8 +337,18 @@ const LandingPage = () => {
             CND UPRAZE
           </motion.div>
           <div className="flex justify-center gap-12 text-gray-500 font-bold mb-16">
-            <a href="#" className="hover:text-primary-500 transition-colors uppercase tracking-widest text-xs">Privacy Policy</a>
-            <a href="#" className="hover:text-primary-500 transition-colors uppercase tracking-widest text-xs">Terms of Service</a>
+            <button 
+              onClick={() => setLegalModal({ isOpen: true, type: 'privacy' })}
+              className="hover:text-primary-500 transition-colors uppercase tracking-widest text-xs cursor-pointer"
+            >
+              Privacy Policy
+            </button>
+            <button 
+              onClick={() => setLegalModal({ isOpen: true, type: 'terms' })}
+              className="hover:text-primary-500 transition-colors uppercase tracking-widest text-xs cursor-pointer"
+            >
+              Terms of Service
+            </button>
             <a href="#" className="hover:text-primary-500 transition-colors uppercase tracking-widest text-xs">Help Center</a>
           </div>
           <div className="text-gray-700 font-bold text-sm tracking-widest uppercase">
@@ -343,6 +356,12 @@ const LandingPage = () => {
           </div>
         </div>
       </footer>
+
+      <LegalModal 
+        isOpen={legalModal.isOpen} 
+        type={legalModal.type} 
+        onClose={() => setLegalModal({ ...legalModal, isOpen: false })} 
+      />
     </div>
   );
 };
