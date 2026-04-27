@@ -19,7 +19,6 @@ import LegalModal from '../components/LegalModal';
 const services = [
   { icon: <Bot className="w-10 h-10" />, title: 'AI ASSISTANCE', desc: 'An intelligent system that automates tasks, enhances decision making, and adapts to user needs.' },
   { icon: <LineChart className="w-10 h-10" />, title: 'FORECASTING', desc: 'A powerful module to help in predicting future trends and data.' },
-  { icon: <Box className="w-10 h-10" />, title: '3D MANIPULATION', desc: 'A dynamic tool that allows interactive viewing, editing, and control of 3D models.' },
   { icon: <ImageIcon className="w-10 h-10" />, title: 'IMAGE RECOGNITION', desc: 'A smart feature that identifies images to an existing repository.' },
   { icon: <QrCode className="w-10 h-10" />, title: 'QR CODE ACCESS', desc: 'A quick access and convenient way to access activities.' }
 ];
