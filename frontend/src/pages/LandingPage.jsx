@@ -41,7 +41,7 @@ const LandingPage = () => {
   };
 
   const hoverScale = {
-    hover: { scale: 1.05, transition: { duration: 0.3 } },
+    hover: { scale: 1.05, transition: { duration: 0.2 } },
     tap: { scale: 0.95 }
   };
 
@@ -112,7 +112,7 @@ const LandingPage = () => {
           >
             <motion.img
               whileHover={{ scale: 1.1 }}
-              transition={{ duration: 1.5 }}
+              transition={{ duration: 0.3 }}
               src="/assets/team-collaboration.jpg"
               className="w-full h-full object-cover"
               alt="Team collaboration"
@@ -164,7 +164,7 @@ const LandingPage = () => {
           >
             <motion.img
               whileHover={{ scale: 1.1 }}
-              transition={{ duration: 1.5 }}
+              transition={{ duration: 0.3 }}
               src="/assets/business-analytics.jpg"
               className="w-full h-full object-cover"
               alt="Business analytics"

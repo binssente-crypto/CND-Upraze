@@ -107,7 +107,7 @@ const Modules = () => {
             whileHover={{ y: -10 }}
             className="group relative h-full"
           >
-            <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 blur-2xl transition-opacity duration-500 -z-10 rounded-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 blur-2xl transition-opacity duration-200 -z-10 rounded-3xl" />
             
             <div className="glass-card h-full p-8 flex flex-col border-dark-border/40 group-hover:border-primary-500/30 transition-colors overflow-hidden relative">
               {/* Badge */}
@@ -122,7 +122,7 @@ const Modules = () => {
               </div>
 
               {/* Icon */}
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${mod.color} p-4 mb-8 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${mod.color} p-4 mb-8 shadow-lg group-hover:scale-110 transition-transform duration-200`}>
                 <mod.icon className="w-full h-full text-white" />
               </div>
 
