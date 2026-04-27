@@ -35,7 +35,7 @@ const LegalModal = ({ isOpen, onClose, type }) => {
           body: "Our services are provided on a subscription basis. You agree to pay all fees associated with your chosen plan. Subscriptions automatically renew unless canceled at least 24 hours before the end of the billing cycle."
         },
         {
-          title: "3. Use License",
+          title: "3. User License",
           body: "Permission is granted to use our modules for business and personal purposes according to your subscription tier. This is a license, not a transfer of title, and you may not reverse engineer or misuse the AI systems."
         }
       ]
