@@ -20,6 +20,7 @@ graph TD
     Nginx --> Laravel
     React <--> Laravel
     Laravel <--> Postgres
+    Laravel <--> Postgres
     Laravel <--> Redis
 ```
 
@@ -51,11 +52,35 @@ sequenceDiagram
     B-->>U: Processed Response
 ```
 
+## Recent Feature Implementations (April 2026)
+
+### 💬 Support & Inquiry System
+A full-featured communication hub for inquiries and customer support:
+- **User Support Center**: Allows users to create inquiry tickets and chat directly with support.
+- **Admin Support Inbox**: A centralized dashboard for administrators to manage, reply, and track statuses of all customer inquiries.
+- **Threaded Conversations**: Uses JSONB message threads for efficient and scalable chat history management.
+
+### 🛠️ Dashboard Modules Hub
+A centralized "Central Hub" for all available business modules:
+- **Quick Launch**: One-click access to AI Assistant, Forecasting, 3D Manipulation, etc.
+- **Modern UI**: High-fidelity cards with dynamic hover effects and status indicators.
+
+### 🛡️ Content Protection & Security
+Implementation of strict content security measures:
+- **Disabled Copy/Paste**: Global blocking of `Ctrl+C` and `Ctrl+A` commands.
+- **Text Selection Prevention**: CSS-level `select-none` implementation across the entire app to prevent unauthorized content extraction.
+- **Repository Governance**: Integrated `CODEOWNERS` and branch protection strategies to enforce Pull Request workflows for collaborators.
+
+### ⚖️ Legal Infrastructure
+Branded, professional legal pages accessible via ultra-snappy modals:
+- **Privacy Policy & Terms of Service**: High-fidelity modals integrated into the landing page footer and registration flow.
+- **Snappy UX**: Optimized 0.15s transition speeds for an "instant" feel.
+
 ## Tech Stack
 
-- **Frontend**: React 18, Vite, Tailwind CSS 4.0, Framer Motion, Lucide Icons.
+- **Frontend**: React 18, Vite, Tailwind CSS 4.0, Framer Motion (Ultra-snappy 0.15s animations).
 - **Backend**: Laravel 11, PHP 8.3, Sanctum (Stateful Authentication).
-- **Database**: PostgreSQL 16.
+- **Database**: PostgreSQL 16 (JSONB for chat threading).
 - **Infrastructure**: Docker, Nginx, CI/CD via GitHub Actions.
 
 ## Getting Started
@@ -92,6 +117,7 @@ The application will be available at:
 - **3D MANIPULATION**: Interactive 3D model viewing and editing.
 - **IMAGE RECOGNITION**: AI-driven visual data extraction.
 - **QR CODE ACCESS**: Fast, proprietary access and activity tracking.
+- **SUPPORT CENTER**: Real-time customer inquiry and chat system.
 
 ---
 © 2026 CND UPRAZE SOLUTIONS. ALL RIGHTS RESERVED.
