@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Briefcase, UserPlus, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
+import LegalModal from '../../components/LegalModal';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const RegisterPage = () => {
     password: '',
     company: ''
   });
+  const [legalModal, setLegalModal] = useState({ isOpen: false, type: 'privacy' });
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
@@ -105,8 +107,20 @@ const RegisterPage = () => {
 
         <p className="text-center mt-8 text-gray-400 text-sm">
           By signing up, you agree to our {' '}
-          <a href="#" className="underline text-primary-500">Terms</a> and {' '}
-          <a href="#" className="underline text-primary-500">Privacy Policy</a>
+          <button 
+            type="button"
+            onClick={() => setLegalModal({ isOpen: true, type: 'terms' })}
+            className="underline text-primary-500 hover:text-primary-400 transition-colors"
+          >
+            Terms
+          </button> and {' '}
+          <button 
+            type="button"
+            onClick={() => setLegalModal({ isOpen: true, type: 'privacy' })}
+            className="underline text-primary-500 hover:text-primary-400 transition-colors"
+          >
+            Privacy Policy
+          </button>
         </p>
 
         <p className="text-center mt-6 text-gray-400">
@@ -114,6 +128,12 @@ const RegisterPage = () => {
           <Link to="/login" className="text-primary-500 font-bold hover:text-primary-400 transition-colors">Sign in</Link>
         </p>
       </motion.div>
+
+      <LegalModal 
+        isOpen={legalModal.isOpen} 
+        type={legalModal.type} 
+        onClose={() => setLegalModal({ ...legalModal, isOpen: false })} 
+      />
     </div>
   );
 };
