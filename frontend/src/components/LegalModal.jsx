@@ -93,7 +93,7 @@ const LegalModal = ({ isOpen, onClose, type }) => {
               
               <div className="p-8 bg-primary-500/5 border border-primary-500/10 rounded-2xl mt-12">
                 <p className="text-sm text-gray-500 italic text-center">
-                  If you have any questions regarding our {active.title.toLowerCase()}, please contact our legal team at legal@upraze.com
+                  If you have any questions regarding our {active.title.toLowerCase()}, please contact our legal team at CND.Upraze@gmail.com
                 </p>
               </div>
             </div>
