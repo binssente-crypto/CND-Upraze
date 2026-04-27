@@ -41,7 +41,7 @@ const LandingPage = () => {
   };
 
   const hoverScale = {
-    hover: { scale: 1.05, transition: { duration: 0.2 } },
+    hover: { scale: 1.05, transition: { duration: 0.15 } },
     tap: { scale: 0.95 }
   };
 
@@ -112,7 +112,7 @@ const LandingPage = () => {
           >
             <motion.img
               whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.15 }}
               src="/assets/team-collaboration.jpg"
               className="w-full h-full object-cover"
               alt="Team collaboration"
@@ -164,7 +164,7 @@ const LandingPage = () => {
           >
             <motion.img
               whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.15 }}
               src="/assets/business-analytics.jpg"
               className="w-full h-full object-cover"
               alt="Business analytics"
@@ -231,8 +231,8 @@ const LandingPage = () => {
                 <motion.div 
                   key={i} 
                   variants={itemVariants}
-                  whileHover={{ scale: 1.05, backgroundColor: "#222", transition: { duration: 0.3, ease: "easeOut" } }}
-                  className="bg-[#1a1a1a] p-8 rounded-[1.5rem] border border-white/5 hover:border-white/20 transition-all group cursor-default"
+                  whileHover={{ scale: 1.05, backgroundColor: "#222", transition: { duration: 0.15, ease: "easeOut" } }}
+                  className="bg-[#1a1a1a] p-8 rounded-[1.5rem] border border-white/5 hover:border-white/20 group cursor-default"
                 >
                   <h4 className="text-2xl font-black text-primary-500 mb-4">{item.title}</h4>
                   <p className="text-gray-400 leading-relaxed">{item.desc}</p>
@@ -266,8 +266,8 @@ const LandingPage = () => {
               <motion.div
                 key={i}
                 variants={itemVariants}
-                whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-                className="bg-primary-500 p-6 pt-8 pb-8 rounded-[3rem] flex flex-col items-center justify-center text-white shadow-xl hover:shadow-primary-500/30 transition-all cursor-default h-[300px]"
+                whileHover={{ scale: 1.05, transition: { duration: 0.15 } }}
+                className="bg-primary-500 p-6 pt-8 pb-8 rounded-[3rem] flex flex-col items-center justify-center text-white shadow-xl hover:shadow-primary-500/30 cursor-default h-[300px]"
               >
                 <motion.div 
                   animate={{ y: [0, -5, 0] }}
@@ -311,7 +311,7 @@ const LandingPage = () => {
               <motion.div
                 key={i}
                 variants={itemVariants}
-                whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+                whileHover={{ scale: 1.05, transition: { duration: 0.15 } }}
                 className="bg-primary-500 p-6 rounded-[2rem] flex flex-col items-center justify-center text-[#1a1a1a] shadow-2xl"
               >
                 <h4 className="text-lg font-black mb-2">{item.title}</h4>
