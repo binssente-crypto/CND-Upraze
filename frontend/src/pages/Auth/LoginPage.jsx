@@ -12,6 +12,7 @@ const LoginPage = () => {
   const [timer, setTimer] = useState(30);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isAutoVerifying, setIsAutoVerifying] = useState(false);
   const navigate = useNavigate();
   const otpRefs = useRef([]);
 
@@ -25,12 +26,8 @@ const LoginPage = () => {
     const otpParam = params.get('otp');
 
     if (isVerify && emailParam && otpParam) {
-      setEmail(emailParam);
-      const otpArray = otpParam.split('').slice(0, 6);
-      setOtp(otpArray);
-      setStep('verify');
+      setIsAutoVerifying(true);
       
-      // Auto-trigger verification after state updates
       const performAutoVerify = async () => {
         setLoading(true);
         try {
@@ -47,10 +44,12 @@ const LoginPage = () => {
             localStorage.setItem('auth_token', data.token);
             navigate('/dashboard');
           } else {
-            setError(data.message || 'Auto-verification failed. Please try again.');
+            setError(data.message || 'Auto-verification failed.');
+            setIsAutoVerifying(false);
           }
         } catch (err) {
           setError('Auto-verification error.');
+          setIsAutoVerifying(false);
         } finally {
           setLoading(false);
         }
@@ -172,7 +171,28 @@ const LoginPage = () => {
       </Link>
 
       <AnimatePresence mode="wait">
-        {step === 'login' ? (
+        {isAutoVerifying ? (
+          <motion.div 
+            key="auto-verify"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="glass-card w-full max-w-md p-12 text-center"
+          >
+            <div className="w-24 h-24 bg-primary-500/10 rounded-full flex items-center justify-center mx-auto mb-8 relative">
+              <div className="absolute inset-0 bg-primary-500/20 rounded-full animate-ping" />
+              <ShieldCheck className="w-12 h-12 text-primary-500 relative z-10" />
+            </div>
+            <h2 className="text-2xl font-black font-outfit uppercase tracking-tight mb-3">Finalizing Activation</h2>
+            <p className="text-gray-500 font-medium tracking-tight">
+              Verifying your credentials with the CND Node...
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-3">
+              <div className="w-1.5 h-1.5 bg-primary-500 rounded-full animate-bounce [animation-delay:-0.3s]" />
+              <div className="w-1.5 h-1.5 bg-primary-500 rounded-full animate-bounce [animation-delay:-0.15s]" />
+              <div className="w-1.5 h-1.5 bg-primary-500 rounded-full animate-bounce" />
+            </div>
+          </motion.div>
+        ) : step === 'login' ? (
           <motion.div 
             key="login"
             initial={{ opacity: 0, x: -20 }}
