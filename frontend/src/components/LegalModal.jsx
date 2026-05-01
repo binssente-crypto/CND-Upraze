@@ -9,16 +9,20 @@ const LegalModal = ({ isOpen, onClose, type }) => {
       icon: <Shield className="w-8 h-8 text-primary-500" />,
       sections: [
         {
-          title: "1. Information We Collect",
-          body: "We collect information you provide directly to us when you create an account, use our AI tools, or communicate with us. This includes your name, email, company details, and any data processed through our modules."
+          title: "1. Information Collection",
+          body: "We collect information you provide directly to us (name, email, professional details) and technical data (IP addresses, device identifiers, and AI processing logs) to ensure the highest quality of service and security."
         },
         {
-          title: "2. How We Use Information",
-          body: "We use the information to provide, maintain, and improve our services, develop new features, and protect CND Upraze and our users. Your data processed through AI modules is handled securely and according to industry standards."
+          title: "2. Data Processing & AI",
+          body: "As an AI-driven platform, we process data using state-of-the-art encryption. Your inputs into our modules are utilized strictly for generating results for your account and are never shared with third parties for marketing purposes."
         },
         {
-          title: "3. Data Security",
-          body: "We implement robust security measures to protect your personal information and business data. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security."
+          title: "3. User Rights & Protection",
+          body: "You maintain full ownership of your data. You may request data exports or account deletion at any time. We implement AES-256 encryption and follow strict SOC2-compliant data handling protocols."
+        },
+        {
+          title: "4. Third-Party Integrations",
+          body: "Our services may integrate with third-party providers. We ensure all partners adhere to equivalent privacy standards, ensuring your data remains protected across the entire digital infrastructure."
         }
       ]
     },
@@ -27,16 +31,20 @@ const LegalModal = ({ isOpen, onClose, type }) => {
       icon: <Scale className="w-8 h-8 text-primary-500" />,
       sections: [
         {
-          title: "1. Acceptance of Terms",
-          body: "By accessing or using CND Upraze Solutions, you agree to be bound by these Terms of Service and all applicable laws and regulations."
+          title: "1. Service Agreement",
+          body: "By utilizing the CND Upraze platform, you enter into a binding agreement to adhere to our operational guidelines and professional standards of use."
         },
         {
-          title: "2. Subscription and Billing",
-          body: "Our services are provided on a subscription basis. You agree to pay all fees associated with your chosen plan. Subscriptions automatically renew unless canceled at least 24 hours before the end of the billing cycle."
+          title: "2. Intellectual Property",
+          body: "The AI modules, proprietary algorithms, and brand assets are the exclusive property of CND Upraze Solutions. Users are granted a non-transferable license to utilize these tools within their subscription tier."
         },
         {
-          title: "3. User License",
-          body: "Permission is granted to use our modules for business and personal purposes according to your subscription tier. This is a license, not a transfer of title, and you may not reverse engineer or misuse the AI systems."
+          title: "3. Liability & Performance",
+          body: "While we strive for 99.9% uptime and AI accuracy, CND Upraze is not liable for indirect losses resulting from system downtime or automated decision-making processes. Users should verify critical AI outputs."
+        },
+        {
+          title: "4. Account Termination",
+          body: "We reserve the right to suspend or terminate accounts that violate our security protocols or engage in unauthorized reverse-engineering of our proprietary AI models."
         }
       ]
     }

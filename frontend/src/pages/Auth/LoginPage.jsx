@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, LogIn, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Logo from '../../components/Logo';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -30,9 +31,9 @@ const LoginPage = () => {
         className="glass-card w-full max-w-md p-10"
       >
         <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center font-black text-xl mx-auto mb-6 shadow-lg rotate-3 text-white">CND</div>
-          <h2 className="text-3xl font-bold mb-2">Welcome Back</h2>
-          <p className="text-gray-400">Enter your credentials to access your dashboard</p>
+          <Logo className="h-12 justify-center mb-10" />
+          <h2 className="text-3xl font-black font-outfit uppercase tracking-tight mb-2">Welcome Back</h2>
+          <p className="text-gray-500 font-medium tracking-tight">Access your node via secure terminal</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">

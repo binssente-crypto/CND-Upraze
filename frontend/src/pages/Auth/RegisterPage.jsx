@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Briefcase, UserPlus, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import LegalModal from '../../components/LegalModal';
+import Logo from '../../components/Logo';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -35,9 +36,9 @@ const RegisterPage = () => {
         className="glass-card w-full max-w-xl p-10"
       >
         <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center font-black text-xl mx-auto mb-6 shadow-lg -rotate-3 text-white">CND</div>
-          <h2 className="text-3xl font-bold mb-2">Create Account</h2>
-          <p className="text-gray-400">Join Upraze Solutions and start scaling today</p>
+          <Logo className="h-12 justify-center mb-10" />
+          <h2 className="text-3xl font-black font-outfit uppercase tracking-tight mb-2">Create Account</h2>
+          <p className="text-gray-500 font-medium tracking-tight">Join Upraze Solutions and start scaling today</p>
         </div>
 
         <form onSubmit={handleRegister} className="grid grid-cols-1 md:grid-cols-2 gap-6">

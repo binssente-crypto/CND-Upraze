@@ -1,24 +1,74 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 @theme {
   --color-primary-50: #fff7ed;
   --color-primary-100: #ffedd5;
-  --color-primary-500: #e67e22; /* Branding Orange */
-  --color-primary-600: #d35400;
+  --color-primary-500: #f97316;
+  /* Vibrant Orange */
+  --color-primary-600: #ea580c;
   --color-primary-900: #7c2d12;
-  
-  --color-dark-bg: #111111; /* Mockup Dark */
-  --color-dark-card: #1a1a1a;
-  --color-dark-border: #333333;
-  
+
+  --color-dark-bg: #030303;
+  /* Deeper Black */
+  --color-dark-card: #0a0a0a;
+  --color-dark-border: #1a1a1a;
+  --color-dark-muted: #111111;
+
   --font-space: "Space Grotesk", sans-serif;
   --font-inter: "Inter", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+
+  @keyframes border-beam {
+    100% {
+      offset-distance: 100%;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
 }
 
 @layer utilities {
   .pill-card {
     @apply rounded-[4rem] overflow-hidden;
+  }
+
+  .bg-grid {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .bg-radial-gradient {
+    background: radial-gradient(circle at center, rgba(249, 115, 22, 0.15) 0%, transparent 70%);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-white/80 to-white/50;
+  }
+
+  .text-gradient-primary {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-orange-400;
   }
 }
 
@@ -26,25 +76,51 @@
   html {
     scroll-behavior: smooth;
   }
+
   body {
-    @apply bg-dark-bg text-gray-100 font-space antialiased select-none;
+    @apply bg-dark-bg text-gray-100 font-inter antialiased select-none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-outfit;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-dark-card/80 backdrop-blur-md border border-dark-border rounded-xl shadow-lg;
+    @apply bg-white/[0.02] backdrop-blur-xl border border-white/[0.05] rounded-2xl shadow-2xl transition-all duration-300;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 8px 32px rgba(0, 0, 0, 0.8);
   }
-  
+
+  .glass-card-hover {
+    @apply hover:bg-white/[0.05] hover:border-white/[0.1] hover:shadow-primary-500/10;
+  }
+
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-500 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-primary-600 hover:bg-primary-500 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-lg shadow-primary-600/20 active:scale-95;
   }
 
   .btn-secondary {
-    @apply bg-dark-card hover:bg-gray-800 text-gray-200 border border-dark-border py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-white/[0.05] hover:bg-white/[0.1] text-white border border-white/[0.1] py-3 px-8 rounded-full transition-all duration-300 active:scale-95;
   }
-  
+
   .input-field {
-    @apply w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500;
+    @apply w-full bg-white/[0.03] border border-white/[0.05] rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all;
+  }
+
+  .border-beam {
+    position: absolute;
+    inset: 0;
+    border: 1px solid transparent;
+    border-radius: inherit;
+    background: linear-gradient(to right, transparent, var(--color-primary-500), transparent) border-box;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
   }
 }
