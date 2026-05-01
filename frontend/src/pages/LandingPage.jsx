@@ -390,7 +390,7 @@ const LandingPage = () => {
                 className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.05] mb-6"
               >
                 <Sparkles className="w-4 h-4 text-primary-500" />
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary-500">v2.0 Infrastructure Live</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.15em] text-primary-500">creating systems that changes lives for the better</span>
               </motion.div>
 
               <motion.h1

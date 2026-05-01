@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 // Auth Routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
 
 // Public Support Routes
 Route::post('/support/inquiries', [SupportInquiryController::class, 'store']);
