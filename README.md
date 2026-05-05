@@ -85,6 +85,7 @@ Branded, professional legal pages accessible via ultra-snappy modals:
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 </div>
@@ -97,7 +98,7 @@ Branded, professional legal pages accessible via ultra-snappy modals:
 | **Data Integrity** | 🐘 **PostgreSQL 16**, **JSONB** | **Dynamic Conversational Data**: Our chat and support modules rely on **JSONB** for high-speed indexing of non-structured message threads. This allows for scalable, threaded interactions while maintaining strict relational integrity for enterprise data. |
 | **Performance Scaling** | ⚡ **Redis 7**, **Task Queues** | **Asynchronous AI Operations**: To keep the UI non-blocking, all AI-related tasks are dispatched to **Redis-backed background queues**. Redis also handles session caching and rate-limiting to protect the system from traffic spikes. |
 | **Payment Gateway** | 💳 **PayMongo** | **Localized Enterprise Payments**: Native integration with **PayMongo** caters specifically to the Philippines market, supporting GCash, Maya, and local bank transfers with real-time webhook synchronization for instant access. |
-| **Cloud Infrastructure** | 🐳 **Docker**, **Nginx**, **Actions** | **Reliable Delivery**: The entire stack is containerized with **Docker**, ensuring consistency across environments. **GitHub Actions** automates our CI/CD pipeline, running tests and static analysis before every deployment to our **Nginx** clusters. |
+| **Cloud Infrastructure** | ☁️ **AWS**, **Docker**, **Nginx** | **Scalable Cloud Hosting**: The entire stack is hosted on **AWS**, utilizing containerized **Docker** environments for 99.9% uptime. **GitHub Actions** automates our CI/CD pipeline directly to our cloud clusters. |
 
 
 
