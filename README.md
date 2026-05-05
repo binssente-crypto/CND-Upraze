@@ -86,6 +86,7 @@ Branded, professional legal pages accessible via ultra-snappy modals:
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Groq](https://img.shields.io/badge/Groq-f55036?style=for-the-badge&logo=groq&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 </div>
@@ -98,7 +99,9 @@ Branded, professional legal pages accessible via ultra-snappy modals:
 | **Data Integrity** | **PostgreSQL 16**, **JSONB** | **Dynamic Conversational Data**: Our chat and support modules rely on **JSONB** for high-speed indexing of non-structured message threads. This allows for scalable, threaded interactions while maintaining strict relational integrity for enterprise data. |
 | **Performance Scaling** | **Redis 7**, **Task Queues** | **Asynchronous AI Operations**: To keep the UI non-blocking, all AI-related tasks are dispatched to **Redis-backed background queues**. Redis also handles session caching and rate-limiting to protect the system from traffic spikes. |
 | **Payment Gateway** | **PayMongo** | **Localized Enterprise Payments**: Native integration with **PayMongo** caters specifically to the Philippines market, supporting GCash, Maya, and local bank transfers with real-time webhook synchronization for instant access. |
+| **AI Intelligence** | **Groq AI** | **Ultra-Fast Inference**: The chatbot and AI assistant modules leverage **Groq AI** for near-instantaneous LLM responses, ensuring real-time interactivity without the latency typical of traditional providers. |
 | **Cloud Infrastructure** | **AWS**, **Docker**, **Nginx**, **GitHub Actions** | **Scalable Cloud Hosting**: The entire stack is hosted on **AWS**, utilizing containerized **Docker** environments for 99.9% uptime. **GitHub Actions** automates our CI/CD pipeline directly to our cloud clusters. |
+
 
 
 
