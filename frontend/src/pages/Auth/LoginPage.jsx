@@ -42,18 +42,19 @@ const LoginPage = () => {
           const data = await response.json();
           if (response.ok) {
             localStorage.setItem('auth_token', data.token);
-            navigate('/dashboard');
-          } else {
+            localStorage.setItem('user_role', data.role); // Save role for routing
+            navigate(data.role === 'admin' ? '/admin/dashboard' : '/dashboard');
+        } else {
             setError(data.message || 'Auto-verification failed.');
             setIsAutoVerifying(false);
-          }
-        } catch (err) {
-          setError('Auto-verification error.');
-          setIsAutoVerifying(false);
-        } finally {
-          setLoading(false);
         }
-      };
+    } catch (err) {
+        setError('Auto-verification error.');
+        setIsAutoVerifying(false);
+    } finally {
+        setLoading(false);
+    }
+};
       performAutoVerify();
     }
   }, [navigate, API_URL]);
@@ -109,6 +110,22 @@ const LoginPage = () => {
     }
   };
 
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+    if (!pastedData) return;
+
+    const newOtp = [...otp];
+    pastedData.split('').forEach((char, i) => {
+      if (i < 6) newOtp[i] = char;
+    });
+    setOtp(newOtp);
+
+    // Focus last filled or next empty
+    const nextIndex = Math.min(pastedData.length, 5);
+    otpRefs.current[nextIndex].focus();
+  };
+
   const handleKeyDown = (index, e) => {
     if (e.key === 'Backspace' && !otp[index] && index > 0) {
       otpRefs.current[index - 1].focus();
@@ -138,7 +155,8 @@ const LoginPage = () => {
 
       // Store token
       localStorage.setItem('auth_token', data.token);
-      navigate('/dashboard');
+      localStorage.setItem('user_role', data.role);
+      navigate(data.role === 'admin' ? '/admin/dashboard' : '/dashboard');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -297,6 +315,7 @@ const LoginPage = () => {
                     value={digit}
                     onChange={(e) => handleOtpChange(i, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(i, e)}
+                    onPaste={handlePaste}
                   />
                 ))}
               </div>
