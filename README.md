@@ -76,7 +76,7 @@ Branded, professional legal pages accessible via ultra-snappy modals:
 - **Privacy Policy & Terms of Service**: High-fidelity modals integrated into the landing page footer and registration flow.
 - **Snappy UX**: Optimized 0.15s transition speeds for an "instant" feel.
 
-## 🛠️ Technical Ecosystem
+## Technical Ecosystem
 
 <div align="center">
 
@@ -93,12 +93,13 @@ Branded, professional legal pages accessible via ultra-snappy modals:
 
 | Category | Technology Stack | Detailed Implementation & Strategic Role |
 | :--- | :--- | :--- |
-| **Frontend Architecture** | ⚛️ **React 18**, **Vite**, **Tailwind 4.0** | **User Experience Excellence**: CND Upraze prioritizes an "Instant-Feel" interface. We utilize **Framer Motion** with a strict **0.15s spring animation** policy to eliminate perceived latency. **Tailwind CSS 4.0** provides the modern design tokens for our proprietary high-fidelity aesthetic. |
-| **Backend Core** | 🐘 **Laravel 11**, **PHP 8.3**, **Sanctum** | **Security & Orchestration**: The backend serves as the **Protocol Core**. We use **Laravel Sanctum** for stateful API authentication, ensuring secure session persistence. **PHP 8.3** features are strictly enforced to maintain a high-performance, robust architecture. |
-| **Data Integrity** | 🐘 **PostgreSQL 16**, **JSONB** | **Dynamic Conversational Data**: Our chat and support modules rely on **JSONB** for high-speed indexing of non-structured message threads. This allows for scalable, threaded interactions while maintaining strict relational integrity for enterprise data. |
-| **Performance Scaling** | ⚡ **Redis 7**, **Task Queues** | **Asynchronous AI Operations**: To keep the UI non-blocking, all AI-related tasks are dispatched to **Redis-backed background queues**. Redis also handles session caching and rate-limiting to protect the system from traffic spikes. |
-| **Payment Gateway** | 💳 **PayMongo** | **Localized Enterprise Payments**: Native integration with **PayMongo** caters specifically to the Philippines market, supporting GCash, Maya, and local bank transfers with real-time webhook synchronization for instant access. |
-| **Cloud Infrastructure** | ☁️ **AWS**, **Docker**, **Nginx** | **Scalable Cloud Hosting**: The entire stack is hosted on **AWS**, utilizing containerized **Docker** environments for 99.9% uptime. **GitHub Actions** automates our CI/CD pipeline directly to our cloud clusters. |
+| **Frontend Architecture** | **React 18**, **Vite**, **Tailwind 4.0** | **User Experience Excellence**: CND Upraze prioritizes an "Instant-Feel" interface. We utilize **Framer Motion** with a strict **0.15s spring animation** policy to eliminate perceived latency. **Tailwind CSS 4.0** provides the modern design tokens for our proprietary high-fidelity aesthetic. |
+| **Backend Core** | **Laravel 11**, **PHP 8.3**, **Sanctum** | **Security & Orchestration**: The backend serves as the **Protocol Core**. We use **Laravel Sanctum** for stateful API authentication, ensuring secure session persistence. **PHP 8.3** features are strictly enforced to maintain a high-performance, robust architecture. |
+| **Data Integrity** | **PostgreSQL 16**, **JSONB** | **Dynamic Conversational Data**: Our chat and support modules rely on **JSONB** for high-speed indexing of non-structured message threads. This allows for scalable, threaded interactions while maintaining strict relational integrity for enterprise data. |
+| **Performance Scaling** | **Redis 7**, **Task Queues** | **Asynchronous AI Operations**: To keep the UI non-blocking, all AI-related tasks are dispatched to **Redis-backed background queues**. Redis also handles session caching and rate-limiting to protect the system from traffic spikes. |
+| **Payment Gateway** | **PayMongo** | **Localized Enterprise Payments**: Native integration with **PayMongo** caters specifically to the Philippines market, supporting GCash, Maya, and local bank transfers with real-time webhook synchronization for instant access. |
+| **Cloud Infrastructure** | **AWS**, **Docker**, **Nginx**, **GitHub Actions** | **Scalable Cloud Hosting**: The entire stack is hosted on **AWS**, utilizing containerized **Docker** environments for 99.9% uptime. **GitHub Actions** automates our CI/CD pipeline directly to our cloud clusters. |
+
 
 
 
