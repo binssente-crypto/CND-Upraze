@@ -97,12 +97,19 @@ Branded, professional legal pages accessible via ultra-snappy modals:
    cd CND-Upraze
    ```
 
-2. **Run with Docker**:
+2. **Prepare Environment**:
+   Copy the example environment files for both frontend and backend:
+   ```bash
+   cp backend/.env.example backend/.env
+   # Ensure DB_HOST is set to 'postgres' in backend/.env
+   ```
+
+3. **Run with Docker**:
    ```bash
    docker compose up -d --build
    ```
 
-3. **Initialize Database**:
+4. **Initialize Database**:
    ```bash
    docker compose exec backend php artisan migrate --seed
    ```
@@ -112,6 +119,8 @@ The application will be available at:
 - **Backend API**: [http://localhost:8000](http://localhost:8000)
 
 ## Core Modules
+- **PROTOCOL CORE**: Our proprietary architectural heart, visualized with a 3D CND loop.
+- **ENTERPRISE PRICING**: Scalable subscription tiers for any size of operation.
 - **AI ASSISTANCE**: Task automation and intelligent decision support.
 - **FORECASTING**: Predictive analytics and trend modeling.
 - **IMAGE RECOGNITION**: AI-driven visual data extraction.

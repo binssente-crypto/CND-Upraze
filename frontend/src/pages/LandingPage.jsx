@@ -115,6 +115,7 @@ const LoopContent = ({ curve }) => {
   return (
     <React.Suspense fallback={null}>
       <PresentationControls
+        enabled={false}
         global
         config={{ mass: 2, tension: 500 }}
         snap={{ mass: 4, tension: 1500 }}
