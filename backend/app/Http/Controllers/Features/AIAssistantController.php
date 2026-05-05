@@ -29,16 +29,44 @@ class AIAssistantController extends Controller
                 'user_id' => $user->id,
                 'title' => substr($request->message, 0, 50),
                 'messages' => [],
-                'model_used' => 'gpt-4o',
+                'model_used' => 'mixtral-8x7b-32768',
             ]);
         }
 
-        // Mock AI response
-        $aiResponse = "I am your CND Upraze AI Assistant. This is a simulated response to: " . $request->message;
+        $messages = $conversation->messages ?? [];
+        $messages[] = ['role' => 'user', 'content' => $request->message, 'ts' => now()->format('h:i A')];
         
-        $messages = $conversation->messages;
-        $messages[] = ['role' => 'user', 'content' => $request->message, 'ts' => now()];
-        $messages[] = ['role' => 'assistant', 'content' => $aiResponse, 'ts' => now()];
+        // Prepare messages for Groq API
+        $groqMessages = [
+            ['role' => 'system', 'content' => 'You are the CND Upraze AI Assistant. Provide helpful, concise, and intelligent responses to help optimize the user\'s business.']
+        ];
+        
+        foreach ($messages as $msg) {
+            $groqMessages[] = [
+                'role' => $msg['role'],
+                'content' => $msg['content']
+            ];
+        }
+
+        try {
+            $response = \Illuminate\Support\Facades\Http::withToken(env('GROQ_API_KEY'))
+                ->post('https://api.groq.com/openai/v1/chat/completions', [
+                    'model' => 'llama-3.3-70b-versatile',
+                    'messages' => $groqMessages,
+                ]);
+
+            if ($response->successful()) {
+                $aiContent = $response->json('choices.0.message.content');
+            } else {
+                \Illuminate\Support\Facades\Log::error('Groq API Error: ' . $response->body());
+                $aiContent = "I'm sorry, I encountered an error communicating with my neural network.";
+            }
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Groq Exception: ' . $e->getMessage());
+            $aiContent = "I'm sorry, an exception occurred while thinking.";
+        }
+
+        $messages[] = ['role' => 'assistant', 'content' => $aiContent, 'ts' => now()->format('h:i A')];
         
         $conversation->update(['messages' => $messages]);
 

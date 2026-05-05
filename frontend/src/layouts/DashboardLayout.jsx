@@ -128,9 +128,10 @@ const DashboardLayout = () => {
       </AnimatePresence>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative bg-grid">
         {/* Decorative Background */}
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary-500/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary-500/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-orange-500/5 blur-[150px] rounded-full pointer-events-none" />
         
         {/* Header */}
         <header className="h-24 border-b border-white/[0.05] flex items-center justify-between px-10 z-40 relative">

@@ -11,7 +11,8 @@ import {
   Sparkles,
   ChevronRight,
   Database,
-  Cpu
+  Cpu,
+  ShieldAlert
 } from 'lucide-react';
 
 const stats = [

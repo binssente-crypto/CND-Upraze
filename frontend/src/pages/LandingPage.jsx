@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import LegalModal from '../components/LegalModal';
+import PublicAIChatbot from '../components/PublicAIChatbot';
 import Logo from '../components/Logo';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { 
@@ -309,6 +310,7 @@ const services = [
 
 const LandingPage = () => {
   const [legalModal, setLegalModal] = React.useState({ isOpen: false, type: 'privacy' });
+  const [isPublicChatOpen, setIsPublicChatOpen] = React.useState(false);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -485,7 +487,14 @@ const LandingPage = () => {
                 <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
                 <p className="text-gray-400 leading-relaxed mb-8">{service.desc}</p>
                 <div className="mt-auto">
-                  <button className="flex items-center gap-2 text-sm font-bold text-primary-500 group-hover:gap-4 transition-all">
+                  <button 
+                    onClick={() => {
+                      if (service.title === 'AI Assistance') {
+                        setIsPublicChatOpen(true);
+                      }
+                    }}
+                    className="flex items-center gap-2 text-sm font-bold text-primary-500 group-hover:gap-4 transition-all"
+                  >
                     Learn More <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -711,6 +720,10 @@ const LandingPage = () => {
         isOpen={legalModal.isOpen}
         type={legalModal.type}
         onClose={() => setLegalModal({ ...legalModal, isOpen: false })}
+      />
+      <PublicAIChatbot 
+        isOpen={isPublicChatOpen} 
+        onClose={() => setIsPublicChatOpen(false)} 
       />
     </div>
   );

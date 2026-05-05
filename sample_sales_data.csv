@@ -1,0 +1,31 @@
+Date,Product_Category,Region,Units_Sold,Revenue
+2026-01-01,Electronics,Asia,89,26700
+2026-01-02,Consulting,Asia,497,497000
+2026-01-03,Electronics,Asia,234,70200
+2026-01-04,Software,Asia,236,35400
+2026-01-05,Electronics,Europe,156,46800
+2026-01-06,Consulting,North America,45,45000
+2026-01-07,Software,Asia,392,58800
+2026-01-08,Consulting,Europe,405,405000
+2026-01-09,Consulting,North America,360,360000
+2026-01-10,Electronics,Asia,490,147000
+2026-01-11,Electronics,Asia,103,30900
+2026-01-12,Software,Asia,91,13650
+2026-01-13,Software,Asia,54,8100
+2026-01-14,Software,Asia,413,61950
+2026-01-15,Software,North America,409,61350
+2026-01-16,Consulting,Asia,364,364000
+2026-01-17,Electronics,Asia,109,32700
+2026-01-18,Consulting,Asia,186,186000
+2026-01-19,Consulting,Asia,78,78000
+2026-01-20,Software,Asia,468,70200
+2026-01-21,Consulting,North America,386,386000
+2026-01-22,Electronics,Asia,335,100500
+2026-01-23,Software,Asia,56,8400
+2026-01-24,Consulting,Asia,191,191000
+2026-01-25,Software,North America,380,57000
+2026-01-26,Consulting,Europe,85,85000
+2026-01-27,Consulting,Europe,60,60000
+2026-01-28,Electronics,Asia,35,10500
+2026-01-29,Consulting,Asia,382,382000
+2026-01-30,Electronics,Europe,223,66900

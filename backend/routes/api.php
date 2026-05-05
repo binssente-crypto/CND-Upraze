@@ -16,6 +16,7 @@ Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
 
 // Public Support Routes
 Route::post('/support/inquiries', [SupportInquiryController::class, 'store']);
+Route::post('/public/ai-chat', [\App\Http\Controllers\PublicAIChatbotController::class, 'chat']);
 
 // Protected Routes
 Route::middleware('auth:sanctum')->group(function () {
