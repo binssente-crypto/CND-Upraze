@@ -81,6 +81,8 @@ Branded, professional legal pages accessible via ultra-snappy modals:
 - **Frontend**: React 18, Vite, Tailwind CSS 4.0, Framer Motion (Ultra-snappy 0.15s animations).
 - **Backend**: Laravel 11, PHP 8.3, Sanctum (Stateful Authentication).
 - **Database**: PostgreSQL 16 (JSONB for chat threading).
+- **Cache & Queue**: Redis 7 (Caching, Background Jobs / Task Queue).
+- **Payment Gateway**: PayMongo (Philippines Payment Provider).
 - **Infrastructure**: Docker, Nginx, CI/CD via GitHub Actions.
 
 ## Getting Started
