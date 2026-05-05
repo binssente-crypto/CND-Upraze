@@ -76,12 +76,37 @@ Branded, professional legal pages accessible via ultra-snappy modals:
 - **Privacy Policy & Terms of Service**: High-fidelity modals integrated into the landing page footer and registration flow.
 - **Snappy UX**: Optimized 0.15s transition speeds for an "instant" feel.
 
-## Tech Stack
+## Technical Ecosystem
 
-- **Frontend**: React 18, Vite, Tailwind CSS 4.0, Framer Motion (Ultra-snappy 0.15s animations).
-- **Backend**: Laravel 11, PHP 8.3, Sanctum (Stateful Authentication).
-- **Database**: PostgreSQL 16 (JSONB for chat threading).
-- **Infrastructure**: Docker, Nginx, CI/CD via GitHub Actions.
+<div align="center">
+
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Groq](https://img.shields.io/badge/Groq-f55036?style=for-the-badge&logo=groq&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+</div>
+
+
+| Category | Technology Stack | Implementation & Rationale |
+| :--- | :--- | :--- |
+| **Frontend Architecture** | **React 18**, **Vite**, **Tailwind 4.0**, **Framer Motion** | React 18 handles interface state and component rendering. Vite builds the frontend assets and provides fast module replacement during development. The team applies Tailwind CSS 4.0 for styling through design tokens. Framer Motion runs interface animations at a strict 0.15-second duration. This removes perceived latency and provides immediate visual feedback. |
+| **Backend Core** | **Laravel 11**, **PHP 8.3**, **Sanctum** | Laravel 11 operates as the Protocol Core for business logic. PHP 8.3 processes backend operations. The team enforces strict typing to prevent runtime errors. Laravel Sanctum manages stateful API authentication. This ensures secure session persistence without the overhead of external authentication providers. |
+| **Data Integrity** | **PostgreSQL 16** | PostgreSQL 16 stores all relational system data. The database uses JSONB columns to index non-structured message threads for chat and support modules. This allows CND Upraze Solutions to query conversational data at high speeds. Relational integrity remains strict for core enterprise records. |
+| **Task Queuing & Caching** | **Redis 7** | Redis 7 manages caching and background task queues. The system dispatches all AI-related tasks to Redis-backed queues. This prevents long-running processes from blocking the user interface. Redis also handles session caching and rate-limiting. This protects the Protocol Core from traffic spikes. |
+| **Financial Gateway** | **PayMongo** | PayMongo processes enterprise subscription payments. The integration targets the Philippines market specifically. The system supports GCash, Maya, and local bank transfers through this gateway. Webhooks synchronize payment states in real time. This grants users immediate access upon successful transactions. |
+| **AI Intelligence** | **Groq AI** | Groq AI powers the chatbot and AI assistant modules. The platform runs Large Language Model inference on this hardware. This produces near-instantaneous text generation. The team chose Groq to remove the latency found in traditional inference providers. This ensures real-time interactivity for end users. |
+| **Cloud Infrastructure** | **AWS**, **Docker**, **Nginx**, **GitHub Actions** | Amazon Web Services hosts the production environment. Docker containerizes the application stack. This creates consistent environments between development and production. GitHub Actions automates the continuous integration and deployment pipeline. The system runs tests and static analysis before deploying code to Nginx-balanced clusters. |
+
+
+
+
+
+
 
 ## Getting Started
 
