@@ -1,21 +1,45 @@
+# Dependencies
 /node_modules
 /vendor
+
+# Environment
 .env
 .env.local
 .env.production
+.env.backup
+.env.ci
+auth.json
+
+# Build & Output
+/dist
+/build
 /public/hot
 /public/storage
 /storage/*.key
-/vendor
 .phpunit.result.cache
+
+# Framework Cache & Storage
+backend/storage/framework/cache/data/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*.php
+backend/storage/logs/*.log
+backend/bootstrap/cache/*
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
 Homestead.json
 Homestead.yaml
-npm-debug.log
-yarn-error.log
-/.idea
-/.vscode
-/dist
-/build
-.DS_Store
-auth.json
-*.local
+
+# Data
+*.csv
+*.xlsx
+temp.json

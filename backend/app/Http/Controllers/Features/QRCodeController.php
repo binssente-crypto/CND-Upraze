@@ -4,39 +4,52 @@ namespace App\Http\Controllers\Features;
 
 use App\Http\Controllers\Controller;
 use App\Models\QrCode;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class QRCodeController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        return $request->user()->qrCodes()->latest()->get();
+        // Return demo QR codes
+        return response()->json([
+            [
+                'id' => 1,
+                'name' => 'CND Upraze Landing',
+                'code' => 'cnd-landing',
+                'payload' => 'https://cndupraze.com',
+                'scan_count' => 1482,
+                'is_active' => true,
+            ],
+            [
+                'id' => 2,
+                'name' => 'CND Solutions Portal',
+                'code' => 'cnd-solutions',
+                'payload' => 'https://cndupraze.com',
+                'scan_count' => 673,
+                'is_active' => true,
+            ],
+            [
+                'id' => 3,
+                'name' => 'CND Product Demo',
+                'code' => 'cnd-demo',
+                'payload' => 'https://cndupraze.com',
+                'scan_count' => 2104,
+                'is_active' => true,
+            ],
+        ]);
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'payload' => 'required|string',
-        ]);
-
-        $qrcode = QrCode::create([
-            'user_id' => $request->user()->id,
-            'payload' => $request->payload,
-            'code' => Str::random(10),
-            'scan_count' => 0,
-            'is_active' => true,
-        ]);
-
-        return response()->json($qrcode, 201);
-    }
-
+    /**
+     * Scan handler — redirects to CND Upraze landing page.
+     */
     public function show($code)
     {
-        $qrcode = QrCode::where('code', $code)->firstOrFail();
-        $qrcode->increment('scan_count');
-        
-        // In a real app, this would redirect if payload is a URL
-        return response()->json($qrcode);
+        $qrcode = QrCode::where('code', $code)->where('is_active', true)->first();
+
+        if ($qrcode) {
+            $qrcode->increment('scan_count');
+        }
+
+        // Always redirect to CND landing page
+        return redirect('https://cndupraze.com');
     }
 }

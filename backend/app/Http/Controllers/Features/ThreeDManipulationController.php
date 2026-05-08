@@ -3,33 +3,28 @@
 namespace App\Http\Controllers\Features;
 
 use App\Http\Controllers\Controller;
-use App\Models\Model3d;
 use Illuminate\Http\Request;
 
 class ThreeDManipulationController extends Controller
 {
+    /**
+     * Return static demo 3D model list.
+     */
     public function index(Request $request)
     {
-        return $request->user()->models3d()->latest()->get();
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|file', // Ensure glb/obj logic later
-            'name' => 'required|string|max:255',
+        return response()->json([
+            [
+                'id' => 1,
+                'name' => 'Product_Demo.glb',
+                'file_type' => 'glb',
+                'file_size' => 2516582,
+            ],
+            [
+                'id' => 2,
+                'name' => 'Prototype_V2.glb',
+                'file_type' => 'glb',
+                'file_size' => 5347264,
+            ],
         ]);
-
-        $path = $request->file('file')->store('models_3d');
-
-        $model = Model3d::create([
-            'user_id' => $request->user()->id,
-            'name' => $request->name,
-            'file_path' => $path,
-            'file_type' => $request->file('file')->getClientOriginalExtension(),
-            'file_size' => $request->file('file')->getSize(),
-        ]);
-
-        return response()->json($model, 201);
     }
 }

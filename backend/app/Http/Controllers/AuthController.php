@@ -131,4 +131,19 @@ class AuthController extends Controller
             'role' => $user->role
         ]);
     }
+
+    public function setNickname(Request $request)
+    {
+        $request->validate([
+            'nickname' => 'required|string|min:2|max:50',
+        ]);
+
+        $user = $request->user();
+        $user->update(['nickname' => $request->nickname]);
+
+        return response()->json([
+            'user' => $user->fresh(),
+            'message' => 'Nickname set successfully.',
+        ]);
+    }
 }

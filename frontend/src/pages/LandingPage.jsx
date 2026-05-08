@@ -296,15 +296,21 @@ const services = [
   },
   {
     icon: <ImageIcon className="w-8 h-8 text-purple-400" />,
-    title: 'Vision AI',
-    desc: 'Advanced image recognition and analysis for automated content moderation.',
+    title: 'Image Recognition',
+    desc: 'Advanced object detection and visual data analysis for automated operations.',
+    span: 'lg:col-span-1'
+  },
+  {
+    icon: <Box className="w-8 h-8 text-orange-400" />,
+    title: '3D Studio',
+    desc: 'Interactive 3D model viewer and editor for spatial data and asset visualization.',
     span: 'lg:col-span-1'
   },
   {
     icon: <QrCode className="w-8 h-8 text-emerald-400" />,
     title: 'Quick Access',
     desc: 'Seamless QR code management for physical and digital asset tracking.',
-    span: 'lg:col-span-2'
+    span: 'lg:col-span-1'
   }
 ];
 
@@ -423,12 +429,6 @@ const LandingPage = () => {
                 <Link to="/register" className="btn-primary w-full sm:w-auto !px-12 !py-5 !text-xs !font-black !uppercase !tracking-widest !rounded-2xl">
                   Launch Project
                 </Link>
-                <button className="flex items-center gap-4 text-gray-400 hover:text-white transition-all group">
-                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white/5">
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                  <span className="text-[10px] font-black uppercase tracking-widest">View Documentation</span>
-                </button>
               </motion.div>
             </div>
 
@@ -567,14 +567,14 @@ const LandingPage = () => {
       <section id="pricing" className="py-32 px-8 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/5 blur-[150px] rounded-full -z-10" />
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24">
+          <div className="text-center mb-16">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-5xl md:text-6xl font-black mb-6 font-outfit tracking-tighter"
             >
-              Enterprise-Grade <span className="text-primary-500">Pricing</span>
+              Service <span className="text-primary-500">Packages</span>
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -583,78 +583,140 @@ const LandingPage = () => {
               transition={{ delay: 0.1 }}
               className="text-gray-500 text-xl max-w-2xl mx-auto font-medium"
             >
-              Scale your digital infrastructure with plans architected for every stage of growth.
+              We build systems for your business. Choose between our template-based or fully custom solutions.
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { 
-                name: 'Starter', 
-                price: '499', 
-                features: ['AI Assistant', 'QR Code Generation', 'Basic Analytics'], 
-                icon: <Rocket className="w-8 h-8 text-blue-400" />,
-                desc: 'Perfect for individuals and small projects.'
-              },
-              { 
-                name: 'Growth', 
-                price: '999', 
-                features: ['AI Assistant', 'QR Code Generation', 'Forecasting', 'Image Recognition', 'Priority Support'], 
-                icon: <Zap className="w-8 h-8 text-primary-500" />,
-                popular: true,
-                desc: 'Everything you need to scale your business.'
-              },
-              { 
-                name: 'Enterprise', 
-                price: '2,499', 
-                features: ['All Pro Features', '3D Manipulation', 'Custom API Access', 'Dedicated Account Manager'], 
-                icon: <Building2 className="w-8 h-8 text-purple-400" />,
-                desc: 'Advanced solutions for large organizations.'
-              },
-            ].map((plan, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className={`glass-card p-12 flex flex-col relative group transition-all duration-500 ${plan.popular ? 'border-primary-500/30 bg-primary-500/[0.02]' : 'hover:bg-white/[0.03]'}`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary-600 to-orange-400 px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl shadow-primary-500/20 text-white border border-white/10">Most Popular</div>
-                )}
-                
-                <div className="mb-10">
-                  <div className="mb-8 bg-white/[0.03] w-20 h-20 rounded-3xl flex items-center justify-center border border-white/[0.05] group-hover:scale-110 transition-transform duration-500">
-                    {plan.icon}
-                  </div>
-                  <h3 className="text-3xl font-black mb-3 font-outfit tracking-tight">{plan.name}</h3>
-                  <p className="text-gray-500 mb-8 leading-relaxed font-medium">{plan.desc}</p>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-6xl font-black font-outfit tracking-tighter">₱{plan.price}</span>
-                    <span className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">/ month</span>
-                  </div>
-                </div>
+          {/* Tier 1 — Prebuilt Systems */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-8"
+          >
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                <Rocket className="w-5 h-5 text-blue-400" />
+              </div>
+              <div>
+                <h3 className="text-lg font-black font-outfit tracking-tight">Prebuilt Systems</h3>
+                <p className="text-xs text-gray-500 font-medium">Template-based • Fast deployment • No branding</p>
+              </div>
+            </div>
 
-                <div className="space-y-6 flex-1 mb-12">
-                  {plan.features.map((feature, i) => (
-                    <div key={i} className="flex items-center gap-4 text-gray-400 font-medium">
-                      <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
-                        <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      </div>
-                      <span className="text-sm">{feature}</span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
+              {[
+                { name: 'Package 1A', price: '3,500', features: ['1 Feature', 'Domain & Hosting', 'Maintenance'], count: '1 Feature' },
+                { name: 'Package 1B', price: '6,500', features: ['2–3 Features', 'Domain & Hosting', 'Maintenance', 'Priority Support'], count: '2–3 Features', popular: true },
+                { name: 'Package 1C', price: '12,000', features: ['4–5 Features', 'Domain & Hosting', 'Maintenance', 'Priority Support', 'Extended SLA'], count: '4–5 Features' },
+              ].map((plan, idx) => (
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className={`glass-card p-10 flex flex-col relative group transition-all duration-500 ${plan.popular ? 'border-blue-500/30 bg-blue-500/[0.02]' : 'hover:bg-white/[0.03]'}`}
+                >
+                  {plan.popular && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-cyan-400 px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl shadow-blue-500/20 text-white border border-white/10">Most Popular</div>
+                  )}
+                  
+                  <div className="mb-8">
+                    <h3 className="text-2xl font-black mb-2 font-outfit tracking-tight">{plan.name}</h3>
+                    <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg text-blue-400 bg-blue-500/10 border border-blue-500/20">{plan.count}</span>
+                    <div className="flex items-baseline gap-2 mt-6">
+                      <span className="text-5xl font-black font-outfit tracking-tighter">₱{plan.price}</span>
+                      <span className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">/ month</span>
                     </div>
-                  ))}
-                </div>
+                  </div>
 
-                <Link to="/register" className={`btn-primary w-full !rounded-2xl !py-5 font-black tracking-widest text-xs uppercase text-center ${
-                    !plan.popular && 'bg-white/[0.05] hover:bg-white/[0.08] text-white border border-white/10 shadow-none'
-                }`}>
-                  Select {plan.name}
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+                  <div className="space-y-5 flex-1 mb-10">
+                    {plan.features.map((feature, i) => (
+                      <div key={i} className="flex items-center gap-4 text-gray-400 font-medium">
+                        <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        </div>
+                        <span className="text-sm">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link to="/register" className={`btn-primary w-full !rounded-2xl !py-5 font-black tracking-widest text-xs uppercase text-center ${
+                      !plan.popular && 'bg-white/[0.05] hover:bg-white/[0.08] text-white border border-white/10 shadow-none'
+                  }`}>
+                    Get Started
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Tier 2 — Custom Systems */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-center gap-3 mb-8 mt-16">
+              <div className="w-10 h-10 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center">
+                <Building2 className="w-5 h-5 text-primary-500" />
+              </div>
+              <div>
+                <h3 className="text-lg font-black font-outfit tracking-tight">Custom Systems</h3>
+                <p className="text-xs text-gray-500 font-medium">Full customization • Full branding • Bespoke design</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl pt-6">
+              {[
+                { name: 'Package 2A', price: '22,000', features: ['Full Customization', '2–3 Features', 'Full Branding Suite', 'Domain & Hosting', 'Maintenance'], count: '2–3 Features' },
+                { name: 'Package 2B', price: '40,000', features: ['Full Customization', '4–5 Features', 'Full Branding Suite', 'Image Recognition', 'Domain & Hosting', 'Dedicated Manager'], count: '4–5 Features', popular: true },
+              ].map((plan, idx) => (
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className={`glass-card p-10 flex flex-col relative group transition-all duration-500 ${plan.popular ? 'border-primary-500/30 bg-primary-500/[0.02]' : 'hover:bg-white/[0.03]'}`}
+                >
+                  {plan.popular && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary-600 to-orange-400 px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl shadow-primary-500/20 text-white border border-white/10">Premium</div>
+                  )}
+
+                  <div className="mb-8">
+                    <h3 className="text-2xl font-black mb-2 font-outfit tracking-tight">{plan.name}</h3>
+                    <div className="flex gap-2">
+                      <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg text-primary-500 bg-primary-500/10 border border-primary-500/20">{plan.count}</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg text-purple-400 bg-purple-500/10 border border-purple-500/20">Full Branding</span>
+                    </div>
+                    <div className="flex items-baseline gap-2 mt-6">
+                      <span className="text-5xl font-black font-outfit tracking-tighter">₱{plan.price}</span>
+                      <span className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">/ month</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-5 flex-1 mb-10">
+                    {plan.features.map((feature, i) => (
+                      <div key={i} className="flex items-center gap-4 text-gray-400 font-medium">
+                        <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        </div>
+                        <span className="text-sm">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link to="/register" className={`btn-primary w-full !rounded-2xl !py-5 font-black tracking-widest text-xs uppercase text-center ${
+                      !plan.popular && 'bg-white/[0.05] hover:bg-white/[0.08] text-white border border-white/10 shadow-none'
+                  }`}>
+                    Get Started
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 

@@ -8,6 +8,7 @@ import DashboardHome from './pages/Dashboard/DashboardHome'
 import Modules from './pages/Dashboard/Modules'
 import BillingPage from './pages/Dashboard/BillingPage'
 import AdminDashboard from './pages/Admin/AdminDashboard'
+import AdminOverview from './pages/Admin/AdminOverview'
 import DevDebugger from './pages/Dashboard/DevDebugger'
 import AIAssistant from './pages/Features/AIAssistant'
 import Forecasting from './pages/Features/Forecasting'
@@ -16,6 +17,7 @@ import ImageRecognition from './pages/Features/ImageRecognition'
 import QRCodeManagement from './pages/Features/QRCodeManagement'
 import SupportCenter from './pages/Support/SupportCenter'
 import AdminInquiries from './pages/Admin/AdminInquiries'
+import OfferManagement from './pages/Admin/OfferManagement'
 
 import { Navigate, Outlet } from 'react-router-dom'
 
@@ -24,7 +26,8 @@ const ProtectedRoute = ({ requiredRole }) => {
   const role = localStorage.getItem('user_role');
 
   if (!token) return <Navigate to="/login" replace />;
-  if (requiredRole && role !== requiredRole) return <Navigate to="/dashboard" replace />;
+  if (requiredRole === 'admin' && !['admin', 'superadmin'].includes(role)) return <Navigate to="/dashboard" replace />;
+  if (requiredRole && requiredRole !== 'admin' && role !== requiredRole) return <Navigate to="/dashboard" replace />;
   
   return <Outlet />;
 };
@@ -51,6 +54,10 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<DashboardHome />} />
+          <Route path="admin/overview" element={<AdminOverview />} />
+          <Route path="admin/users" element={<AdminDashboard />} />
+          <Route path="admin/offers" element={<OfferManagement />} />
+          <Route path="admin/inquiries" element={<AdminInquiries />} />
           <Route path="modules" element={<Modules />} />
           <Route path="billing" element={<BillingPage />} />
           <Route path="debug" element={<DevDebugger />} />

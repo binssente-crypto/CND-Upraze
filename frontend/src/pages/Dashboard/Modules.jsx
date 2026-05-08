@@ -179,7 +179,7 @@ const Modules = () => {
             Our engineering team can deploy bespoke integrations and automated protocols specifically for your enterprise data landscape.
           </p>
           <div className="flex flex-wrap gap-8">
-             <button className="btn-primary !px-12 !py-5 !text-[10px] !font-black !uppercase !tracking-widest !rounded-2xl">Contact Engineering</button>
+             <Link to="/dashboard/support" className="btn-primary !px-12 !py-5 !text-[10px] !font-black !uppercase !tracking-widest !rounded-2xl">Contact Engineering</Link>
              <button className="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-colors">Documentation Library</button>
           </div>
         </div>

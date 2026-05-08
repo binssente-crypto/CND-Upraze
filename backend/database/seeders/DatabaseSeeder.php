@@ -20,9 +20,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@upraze.com',
-            'password' => bcrypt('password'),
+            'name' => 'CND Upraze Admin',
+            'nickname' => 'Admin',
+            'email' => env('ADMIN_EMAIL', 'cnd.upraze@gmail.com'),
+            'password' => bcrypt(env('ADMIN_PASSWORD', 'password')),
             'role' => 'admin',
         ]);
     }
