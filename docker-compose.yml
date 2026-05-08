@@ -54,6 +54,8 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       QUEUE_CONNECTION: redis
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-cnd.upraze@gmail.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-cndupraze2026}
     depends_on:
       postgres:
         condition: service_healthy
@@ -71,6 +73,19 @@ services:
     command: php artisan queue:work redis --sleep=3 --tries=3 --timeout=60
     volumes:
       - ./backend:/var/www
+      - ./backend/.env:/var/www/.env
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: cnd_upraze
+      DB_USERNAME: cnd_user
+      DB_PASSWORD: secret
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      QUEUE_CONNECTION: redis
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-cnd.upraze@gmail.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-cndupraze2026}
     depends_on:
       - backend
       - redis
