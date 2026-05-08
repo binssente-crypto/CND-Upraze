@@ -9,6 +9,7 @@ Our system is built using a modern micro-monolith approach, containerized with D
 ```mermaid
 graph TD
     User((User))
+    Admin((Administrator))
     Nginx[Nginx Reverse Proxy]
     React[React + Vite Frontend]
     Laravel[Laravel 11 Backend]
@@ -16,65 +17,58 @@ graph TD
     Redis[(Redis Cache)]
 
     User --> Nginx
+    Admin --> Nginx
     Nginx --> React
     Nginx --> Laravel
     React <--> Laravel
     Laravel <--> Postgres
-    Laravel <--> Postgres
     Laravel <--> Redis
 ```
 
-## Data Pipeline (AI Query Flow)
+## Administrative Governance (Command Center)
 
-The following diagram illustrates how an asynchronous AI query or task is handled within the CND Upraze ecosystem.
+The following diagram illustrates the flow of high-fidelity telemetry and market share data into the administrative command center.
 
 ```mermaid
 sequenceDiagram
-    participant U as User (React UI)
-    participant B as Backend (Laravel)
+    participant B as Backend (Controller)
     participant D as Database (Postgres)
-    participant Q as Task Queue
-    participant AI as AI Engine
-
-    U->>B: POST /api/features/ai-assistant (Prompt)
-    B->>D: Create Conversation Log
-    B->>Q: Dispatch Job
-    B-->>U: 202 Accepted (Job ID)
+    participant C as Command Center (React)
     
-    Q->>AI: Process with AI Engine
-    AI-->>Q: Result Data
-    Q->>D: Update Job Status & Content
-    
-    Note over U,D: Polling or WebSocket Notification
-    U->>B: GET /api/features/ai-assistant/status/{id}
-    B->>D: Fetch Result
-    D-->>B: Content
-    B-->>U: Processed Response
+    B->>D: Aggregate Monthly Sales (PHP)
+    B->>D: Calculate Plan Distribution
+    D-->>B: Aggregated Metrics
+    B-->>C: Telemetry Stream (JSON)
+    Note over C: Recharts Dual-Viz Rendering
+    C->>C: Render Revenue Trajectory (Area)
+    C->>C: Render Market Share (Pie)
 ```
 
-## Recent Feature Implementations (April 2026)
+## Recent Feature Implementations (May 2026)
 
-### Support & Inquiry System
-A full-featured communication hub for inquiries and customer support:
-- **User Support Center**: Allows users to create inquiry tickets and chat directly with support.
-- **Admin Support Inbox**: A centralized dashboard for administrators to manage, reply, and track statuses of all customer inquiries.
-- **Threaded Conversations**: Uses JSONB message threads for efficient and scalable chat history management.
+### Administrative Command Center
+A high-fidelity cockpit for platform governance:
+- **Real-Time Telemetry**: Dual-chart visualization for financial trajectories and market share distribution.
+- **User Directory**: Streamlined management of clients with high-density data views.
+- **Offer Management**: Dynamic creation and deployment of service packages.
+- **Security Hardening**: Secure administrative credential management via environment-variable externalization.
 
-### Dashboard Modules Hub
-A centralized "Central Hub" for all available business modules:
-- **Quick Launch**: One-click access to AI Assistant, Forecasting, and specialized business tools.
-- **Modern UI**: High-fidelity cards with dynamic hover effects and status indicators.
+### 3D Studio Integration
+Expansion of our visual data capabilities:
+- **Bento-Style Grid**: Seamless integration of 3D manipulation into the service grid.
+- **Protocol Core**: Propelling visual data into 3D space for proprietary business use.
+
+### Support & Inquiry Optimization
+Hardened communication infrastructure:
+- **Database Indexing**: Strategic indices on unread status and sender tracking for near-instant message retrieval.
+- **Field-Level Optimization**: Reduced memory overhead by selecting specific telemetry columns during data fetching.
+- **Unified Chat**: Consistent 3D/Support visual language across admin and user views.
 
 ### Content Protection & Security
 Implementation of strict content security measures:
 - **Disabled Copy/Paste**: Global blocking of Ctrl+C and Ctrl+A commands.
-- **Text Selection Prevention**: CSS-level select-none implementation across the entire app to prevent unauthorized content extraction.
-- **Repository Governance**: Integrated CODEOWNERS and branch protection strategies to enforce Pull Request workflows for collaborators.
-
-### Legal Infrastructure
-Branded, professional legal pages accessible via ultra-snappy modals:
-- **Privacy Policy & Terms of Service**: High-fidelity modals integrated into the landing page footer and registration flow.
-- **Snappy UX**: Optimized 0.15s transition speeds for an "instant" feel.
+- **Text Selection Prevention**: CSS-level select-none implementation across the entire app.
+- **Repository Governance**: Integrated branch protection and credential safety protocols.
 
 ## Technical Ecosystem
 
@@ -94,19 +88,13 @@ Branded, professional legal pages accessible via ultra-snappy modals:
 
 | Category | Technology Stack | Implementation & Rationale |
 | :--- | :--- | :--- |
-| **Frontend Architecture** | **React 18**, **Vite**, **Tailwind 4.0**, **Framer Motion** | React 18 handles interface state and component rendering. Vite builds the frontend assets and provides fast module replacement during development. The team applies Tailwind CSS 4.0 for styling through design tokens. Framer Motion runs interface animations at a strict 0.15-second duration. This removes perceived latency and provides immediate visual feedback. |
-| **Backend Core** | **Laravel 11**, **PHP 8.3**, **Sanctum** | Laravel 11 operates as the Protocol Core for business logic. PHP 8.3 processes backend operations. The team enforces strict typing to prevent runtime errors. Laravel Sanctum manages stateful API authentication. This ensures secure session persistence without the overhead of external authentication providers. |
-| **Data Integrity** | **PostgreSQL 16** | PostgreSQL 16 stores all relational system data. The database uses JSONB columns to index non-structured message threads for chat and support modules. This allows CND Upraze Solutions to query conversational data at high speeds. Relational integrity remains strict for core enterprise records. |
-| **Task Queuing & Caching** | **Redis 7** | Redis 7 manages caching and background task queues. The system dispatches all AI-related tasks to Redis-backed queues. This prevents long-running processes from blocking the user interface. Redis also handles session caching and rate-limiting. This protects the Protocol Core from traffic spikes. |
-| **Financial Gateway** | **PayMongo** | PayMongo processes enterprise subscription payments. The integration targets the Philippines market specifically. The system supports GCash, Maya, and local bank transfers through this gateway. Webhooks synchronize payment states in real time. This grants users immediate access upon successful transactions. |
-| **AI Intelligence** | **Groq AI** | Groq AI powers the chatbot and AI assistant modules. The platform runs Large Language Model inference on this hardware. This produces near-instantaneous text generation. The team chose Groq to remove the latency found in traditional inference providers. This ensures real-time interactivity for end users. |
-| **Cloud Infrastructure** | **AWS**, **Docker**, **Nginx**, **GitHub Actions** | Amazon Web Services hosts the production environment. Docker containerizes the application stack. This creates consistent environments between development and production. GitHub Actions automates the continuous integration and deployment pipeline. The system runs tests and static analysis before deploying code to Nginx-balanced clusters. |
-
-
-
-
-
-
+| **Frontend Architecture** | **React 19**, **Vite**, **Tailwind 4.0**, **Framer Motion** | React 19 handles interface state. Vite provides fast module replacement. Tailwind CSS 4.0 manages design tokens. Framer Motion runs animations at a strict 0.15s duration for near-zero perceived latency. |
+| **Backend Core** | **Laravel 11**, **PHP 8.3**, **Sanctum** | Laravel 11 operates as the Protocol Core for business logic. PHP 8.3 processes backend operations with strict typing. Sanctum manages secure, stateful API authentication. |
+| **Data Integrity** | **PostgreSQL 16**, **Recharts** | PostgreSQL 16 stores relational and JSONB data. Recharts visualizes telemetry streams for administrative governance. |
+| **Task Queuing** | **Redis 7** | Redis 7 manages background queues for AI tasks and caching, protecting the core from traffic spikes. |
+| **Financial Gateway** | **PayMongo** | Processes enterprise subscription payments targeting the Philippines market (GCash, Maya, Bank Transfer). |
+| **AI Intelligence** | **Groq AI** | LLM inference on Groq hardware for near-instant interaction speeds. |
+| **Infrastructure** | **AWS**, **Docker**, **GitHub Actions** | AWS production hosting, Docker containerization, and automated CI/CD via GitHub Actions for seamless deployment. |
 
 ## Getting Started
 
@@ -123,10 +111,10 @@ Branded, professional legal pages accessible via ultra-snappy modals:
    ```
 
 2. **Prepare Environment**:
-   Copy the example environment files for both frontend and backend:
+   Copy the example environment files and set your admin credentials:
    ```bash
    cp backend/.env.example backend/.env
-   # Ensure DB_HOST is set to 'postgres' in backend/.env
+   # Add ADMIN_EMAIL and ADMIN_PASSWORD to backend/.env
    ```
 
 3. **Run with Docker**:
@@ -139,18 +127,12 @@ Branded, professional legal pages accessible via ultra-snappy modals:
    docker compose exec backend php artisan migrate --seed
    ```
 
-The application will be available at:
-- **Frontend**: [http://localhost:5173](http://localhost:5173)
-- **Backend API**: [http://localhost:8000](http://localhost:8000)
-
 ## Core Modules
-- **PROTOCOL CORE**: Our proprietary architectural heart, visualized with a 3D CND loop.
-- **ENTERPRISE PRICING**: Scalable subscription tiers for any size of operation.
-- **AI ASSISTANCE**: Task automation and intelligent decision support.
-- **FORECASTING**: Predictive analytics and trend modeling.
-- **IMAGE RECOGNITION**: AI-driven visual data extraction.
-- **QR CODE ACCESS**: Fast, proprietary access and activity tracking.
-- **SUPPORT CENTER**: Real-time customer inquiry and chat system.
+- **PROTOCOL CORE**: Proprietary architectural heart visualized with 3D telemetry.
+- **ADMIN COMMAND CENTER**: Real-time platform governance and financial tracking.
+- **3D STUDIO**: Specialized visual data manipulation and Bento integration.
+- **AI ASSISTANCE**: Near-instant task automation powered by Groq.
+- **SUPPORT HUB**: Optimized communication hub with performance-tuned indexing.
 
 ---
 © 2026 CND UPRAZE SOLUTIONS. ALL RIGHTS RESERVED.
