@@ -44,6 +44,129 @@ sequenceDiagram
     C->>C: Render Market Share (Pie)
 ```
 
+## Development Process Flowchart
+
+The following diagram illustrates the end-to-end development lifecycle used by CND Upraze Solutions — from initial client engagement through deployment and ongoing maintenance.
+
+```mermaid
+flowchart TD
+    START(["START"]) --> CONTRACT["Contract for\nProject Agreement"]
+    CONTRACT --> GATHER["Information Gathering\non Client Requirements"]
+    GATHER --> STRUCTURE["System Architecture\n& Structure Planning"]
+    STRUCTURE --> DESIGN["UI/UX Design\n& Wireframing"]
+    DESIGN --> BUILD["Full-Stack\nDevelopment"]
+    BUILD --> PROTOTYPE(("Prototype\nDemo"))
+    PROTOTYPE --> TESTING["QA Testing\n& Bug Fixing"]
+    TESTING --> REVIEW["Client Review\n& Feedback"]
+    REVIEW --> DECISION{"Redesign /\nRemodel?"}
+    DECISION -- "Yes" --> GATHER
+    DECISION -- "No" --> LAUNCH["Launch\n& Deployment"]
+    LAUNCH --> MAINTENANCE["Ongoing Maintenance\n& Support"]
+    MAINTENANCE -.->|"New Requirements"| GATHER
+
+    style START fill:#1a1a2e,stroke:#e94560,color:#fff
+    style CONTRACT fill:#16213e,stroke:#0f3460,color:#fff
+    style GATHER fill:#16213e,stroke:#0f3460,color:#fff
+    style STRUCTURE fill:#16213e,stroke:#0f3460,color:#fff
+    style DESIGN fill:#16213e,stroke:#0f3460,color:#fff
+    style BUILD fill:#16213e,stroke:#0f3460,color:#fff
+    style PROTOTYPE fill:#0f3460,stroke:#e94560,color:#fff
+    style TESTING fill:#16213e,stroke:#0f3460,color:#fff
+    style REVIEW fill:#16213e,stroke:#0f3460,color:#fff
+    style DECISION fill:#e94560,stroke:#1a1a2e,color:#fff
+    style LAUNCH fill:#533483,stroke:#e94560,color:#fff
+    style MAINTENANCE fill:#533483,stroke:#e94560,color:#fff
+```
+
+## Transaction Process Flowchart
+
+The following diagram illustrates the complete user transaction flow — from initial visit on the CND Upraze landing page through authentication, package selection, payment processing via Xendit, and order fulfillment.
+
+```mermaid
+flowchart TD
+    START(["START"]) --> LANDING["CND Upraze\nLanding Page"]
+    LANDING --> AUTH["Log In / Register"]
+    AUTH --> HAS_ACCOUNT{"Already have\nan account?"}
+    HAS_ACCOUNT -- "Yes" --> SIGNIN["Sign In\n(Email + Password)"]
+    HAS_ACCOUNT -- "No" --> SIGNUP["Sign Up\n(Register + OTP Verify)"]
+    SIGNUP --> DASHBOARD
+    SIGNIN --> DASHBOARD["Homepage /\nDashboard"]
+    DASHBOARD --> SELECT["Select Service\nPackage"]
+    SELECT --> CONFIRM_PKG{"Confirm\nPackage?"}
+    CONFIRM_PKG -- "No" --> SELECT
+    CONFIRM_PKG -- "Yes" --> PAYMENT["Payment Method\n(Xendit Gateway)"]
+    PAYMENT --> ORDER_DETAILS["Order Details\n& Summary"]
+    ORDER_DETAILS --> CONFIRM_ORDER{"Confirm\nOrder?"}
+    CONFIRM_ORDER -- "No" --> SELECT
+    CONFIRM_ORDER -- "Yes" --> PROCESS["Process Payment\n(Xendit Invoice)"]
+    PROCESS --> WEBHOOK["Xendit Webhook\nCallback"]
+    WEBHOOK --> STATUS{"Payment\nStatus?"}
+    STATUS -- "PAID" --> COMPLETE["Order Confirmed\n Status: Processing"]
+    STATUS -- "FAILED" --> RETRY["Redirect to\nBilling Page"]
+    RETRY --> SELECT
+    COMPLETE --> FINISH(["END"])
+
+    style START fill:#1a1a2e,stroke:#e94560,color:#fff
+    style LANDING fill:#16213e,stroke:#0f3460,color:#fff
+    style AUTH fill:#16213e,stroke:#0f3460,color:#fff
+    style HAS_ACCOUNT fill:#e94560,stroke:#1a1a2e,color:#fff
+    style SIGNIN fill:#16213e,stroke:#0f3460,color:#fff
+    style SIGNUP fill:#16213e,stroke:#0f3460,color:#fff
+    style DASHBOARD fill:#533483,stroke:#e94560,color:#fff
+    style SELECT fill:#16213e,stroke:#0f3460,color:#fff
+    style CONFIRM_PKG fill:#e94560,stroke:#1a1a2e,color:#fff
+    style PAYMENT fill:#0f3460,stroke:#e94560,color:#fff
+    style ORDER_DETAILS fill:#16213e,stroke:#0f3460,color:#fff
+    style CONFIRM_ORDER fill:#e94560,stroke:#1a1a2e,color:#fff
+    style PROCESS fill:#0f3460,stroke:#e94560,color:#fff
+    style WEBHOOK fill:#0f3460,stroke:#e94560,color:#fff
+    style STATUS fill:#e94560,stroke:#1a1a2e,color:#fff
+    style COMPLETE fill:#533483,stroke:#0f3460,color:#fff
+    style RETRY fill:#16213e,stroke:#e94560,color:#fff
+    style FINISH fill:#1a1a2e,stroke:#e94560,color:#fff
+```
+
+## Navigation Process Flowchart
+
+The following diagram illustrates the complete navigation process within the CND Upraze platform — from user registration through service selection, order placement, admin confirmation, and payment completion.
+
+```mermaid
+flowchart TD
+    START(["Start"]) --> REGISTER["Register"]
+    REGISTER --> NEW_USER{"New User?"}
+    NEW_USER -- "Yes" --> SIGNUP["Sign-Up\n(OTP Verification)"]
+    NEW_USER -- "No" --> SIGNIN
+    SIGNUP --> SIGNIN["Sign-In"]
+    SIGNIN --> DASHBOARD["Dashboard"]
+    DASHBOARD --> PRODUCTS["Service Packages\n(Billing Page)"]
+    PRODUCTS --> CHOOSE["Choosing of\nService Plan"]
+    CHOOSE --> FILL_DETAILS["Fill Up Company\n& Order Details"]
+    FILL_DETAILS --> CHECKOUT["Checkout\n(Xendit Payment)"]
+    CHECKOUT --> CONFIRM_ADMIN["Confirm Order\nby Admin"]
+    CONFIRM_ADMIN --> GENERATE["Generate Invoice\n& Reference Code"]
+    GENERATE --> RECEIPT["Send Email\nReceipt"]
+    RECEIPT --> UPDATE["Update Order Status\non Dashboard"]
+    UPDATE --> PAYMENT["Complete Payment\nvia Xendit"]
+    PAYMENT --> FINISH(["End"])
+
+    style START fill:#1a1a2e,stroke:#e94560,color:#fff
+    style REGISTER fill:#16213e,stroke:#0f3460,color:#fff
+    style NEW_USER fill:#e94560,stroke:#1a1a2e,color:#fff
+    style SIGNUP fill:#16213e,stroke:#0f3460,color:#fff
+    style SIGNIN fill:#16213e,stroke:#0f3460,color:#fff
+    style DASHBOARD fill:#533483,stroke:#e94560,color:#fff
+    style PRODUCTS fill:#16213e,stroke:#0f3460,color:#fff
+    style CHOOSE fill:#16213e,stroke:#0f3460,color:#fff
+    style FILL_DETAILS fill:#16213e,stroke:#0f3460,color:#fff
+    style CHECKOUT fill:#0f3460,stroke:#e94560,color:#fff
+    style CONFIRM_ADMIN fill:#0f3460,stroke:#e94560,color:#fff
+    style GENERATE fill:#0f3460,stroke:#e94560,color:#fff
+    style RECEIPT fill:#533483,stroke:#e94560,color:#fff
+    style UPDATE fill:#533483,stroke:#e94560,color:#fff
+    style PAYMENT fill:#533483,stroke:#0f3460,color:#fff
+    style FINISH fill:#1a1a2e,stroke:#e94560,color:#fff
+```
+
 ## Recent Feature Implementations (May 2026)
 
 ### Administrative Command Center
