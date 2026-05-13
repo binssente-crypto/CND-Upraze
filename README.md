@@ -100,7 +100,7 @@ flowchart TD
     INBOX --> PAYMENT["Process Payment\n(Xendit Gateway)"]
     PAYMENT --> WEBHOOK["Xendit Webhook\nCallback"]
     WEBHOOK --> STATUS{"Payment\nStatus?"}
-    STATUS -- "PAID" --> COMPLETE["Order Processing\n✅ Email Receipt Sent"]
+    STATUS -- "PAID" --> COMPLETE["Order Processing\n Email Receipt Sent"]
     STATUS -- "FAILED" --> RETRY["Retry Payment"]
     RETRY --> INBOX
     COMPLETE --> FINISH(["END"])
