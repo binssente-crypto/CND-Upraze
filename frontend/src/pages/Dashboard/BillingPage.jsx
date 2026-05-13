@@ -181,7 +181,7 @@ const BillingPage = () => {
                 </p>
 
                 <div className="flex items-baseline gap-2">
-                  <span className="text-5xl font-black font-outfit tracking-tighter text-white">₱{pkg.price}</span>
+                  <span className="text-5xl font-black font-outfit tracking-tighter text-white">₱{Number(pkg.price).toLocaleString()}</span>
                   <span className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">/ {pkg.interval}</span>
                 </div>
               </div>

@@ -15,7 +15,7 @@ class OfferSeeder extends Seeder
         $offers = [
             [
                 'name' => 'Package A',
-                'price' => '3,500',
+                'price' => 3500,
                 'features' => [
                     'Best for small startups and basic operations',
                     '1 core feature of choice',
@@ -27,7 +27,7 @@ class OfferSeeder extends Seeder
             ],
             [
                 'name' => 'Package B',
-                'price' => '10,500',
+                'price' => 10500,
                 'features' => [
                     'Designed for growing businesses needing advanced operational tools',
                     'Up to 3 features of choice',
@@ -40,7 +40,7 @@ class OfferSeeder extends Seeder
             ],
             [
                 'name' => 'Package C',
-                'price' => '18,000',
+                'price' => 18000,
                 'features' => [
                     'For large establishments requiring highly customized systems',
                     'Up to 5 integrated features',
