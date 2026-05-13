@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Features;
 use App\Http\Controllers\Controller;
 use App\Models\AiConversation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class AIAssistantController extends Controller
 {
@@ -49,7 +51,7 @@ class AIAssistantController extends Controller
         }
 
         try {
-            $response = \Illuminate\Support\Facades\Http::withToken(env('GROQ_API_KEY'))
+            $response = Http::withToken(env('GROQ_API_KEY'))
                 ->post('https://api.groq.com/openai/v1/chat/completions', [
                     'model' => 'llama-3.3-70b-versatile',
                     'messages' => $groqMessages,
@@ -58,11 +60,11 @@ class AIAssistantController extends Controller
             if ($response->successful()) {
                 $aiContent = $response->json('choices.0.message.content');
             } else {
-                \Illuminate\Support\Facades\Log::error('Groq API Error: ' . $response->body());
+                Log::error('Groq API Error: ' . $response->body());
                 $aiContent = "I'm sorry, I encountered an error communicating with my neural network.";
             }
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Groq Exception: ' . $e->getMessage());
+            Log::error('Groq Exception: ' . $e->getMessage());
             $aiContent = "I'm sorry, an exception occurred while thinking.";
         }
 
@@ -80,7 +82,7 @@ class AIAssistantController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $conversation = \App\Models\AiConversation::findOrFail($id);
+        $conversation = AiConversation::findOrFail($id);
         if ($conversation->user_id !== $request->user()->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
