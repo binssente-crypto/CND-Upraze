@@ -268,7 +268,7 @@ const BillingPage = () => {
             <p className="text-gray-400 text-sm mb-6">Please fill up the details to proceed with your plan.</p>
             
             <form onSubmit={handleOrderSubmit} className="space-y-5">
-              {(selectedPackage.name?.toLowerCase().includes('pro') || selectedPackage.name?.toLowerCase().includes('enterprise') || selectedPackage.name?.toLowerCase().includes('package b') || selectedPackage.name?.toLowerCase().includes('package c')) && (
+              {(selectedPackage.name?.toLowerCase().includes('pro') || selectedPackage.name?.toLowerCase().includes('enterprise')) && (
                 <div>
                   <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Name of Company</label>
                   <input
@@ -294,7 +294,7 @@ const BillingPage = () => {
                 ></textarea>
               </div>
 
-              {!(selectedPackage.name?.toLowerCase().includes('package a') || selectedPackage.name?.toLowerCase().includes('starter')) && (
+              {!(selectedPackage.name?.toLowerCase().includes('starter')) && (
                 <div>
                   <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Design Preference</label>
                   <textarea
@@ -312,22 +312,22 @@ const BillingPage = () => {
                 let options = [];
                 let maxSelections = 5;
                 const pkgName = selectedPackage?.name?.toLowerCase() || '';
-                if (pkgName.includes('package a') || pkgName.includes('starter')) {
-                  options = ['QR Implementation', 'Basic Forecasting Algorithm', 'AI Chatbot Assistant', '3D Viewer'];
+                if (pkgName.includes('starter')) {
+                  options = ['QR Transaction with Expiry', 'Basic Forecasting', 'AI Chatbot Assistant', '3D Viewer Only'];
                   maxSelections = 1;
-                } else if (pkgName.includes('package b') || pkgName.includes('pro')) {
+                } else if (pkgName.includes('pro')) {
                   options = [
-                    'AI Chatbot Assistant / Report',
+                    'AI Chatbot Assistant / Reports',
                     'AI-Assisted Forecasting',
-                    'QR Ordering with Session Expiration',
-                    'Image Recognition Module',
+                    'QR Transaction with Expiry',
+                    'Image Recognition',
                     '3D Viewer / Manipulation'
                   ];
                   maxSelections = 3;
                 } else {
-                  // Package C / Enterprise / Default
+                  // Enterprise / Default
                   options = [
-                    'AI Chatbot Assistant / Report',
+                    'Advanced AI Chatbot Assistant / Report / Summary Report',
                     'Advanced Forecasting',
                     'QR Ordering Access',
                     'Image Recognition',

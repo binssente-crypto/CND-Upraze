@@ -11,41 +11,45 @@ class PlanSeeder extends Seeder
     {
         $plans = [
             [
-                'name' => 'Package A',
-                'slug' => 'package-a',
+                'name' => 'Starter Package',
+                'slug' => 'starter-package',
                 'price' => 3500.00,
                 'features' => [
-                    'Best for small startups and basic operations',
                     '1 core feature of choice',
                     'Basic setup and support',
                     'Cloud-based access',
-                    'Options: QR Implementation, Basic Forecasting, AI Chatbot, 3D Viewer'
+                    '5 accounts + 1 admin account',
+                    '3 months free maintenance',
+                    'Domain and Hosting'
                 ],
             ],
             [
-                'name' => 'Package B',
-                'slug' => 'package-b',
+                'name' => 'Pro Package',
+                'slug' => 'pro-package',
                 'price' => 10500.00,
                 'features' => [
-                    'Designed for growing businesses needing advanced operational tools',
                     'Up to 3 features of choice',
                     'Priority support',
                     'System customization',
                     'Analytics dashboard',
-                    'Options: AI Chatbot/Report, AI-Assisted Forecasting, QR Ordering, Image Recognition, 3D Viewer'
+                    '25 accounts + 5 admin accounts',
+                    '6 months free maintenance',
+                    'Custom Domain and Hosting'
                 ],
             ],
             [
-                'name' => 'Package C',
-                'slug' => 'package-c',
+                'name' => 'Enterprise Package',
+                'slug' => 'enterprise-package',
                 'price' => 18000.00,
                 'features' => [
-                    'For large establishments requiring highly customized systems',
                     'Up to 5 integrated features',
                     'Advanced customization',
+                    'Priority support',
                     'Dedicated technical support',
                     'Scalable cloud infrastructure',
-                    'Options: AI Chatbot/Report, Adv. Forecasting, QR Access, Image Recognition, 3D Customization'
+                    'Unlimited accounts',
+                    '1 year free maintenance',
+                    'Custom Domain and Hosting'
                 ],
             ],
         ];

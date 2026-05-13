@@ -12,42 +12,48 @@ class OfferSeeder extends Seeder
      */
     public function run(): void
     {
+        \App\Models\Offer::truncate();
+
         $offers = [
             [
-                'name' => 'Package A',
+                'name' => 'Starter Package',
                 'price' => 3500,
                 'features' => [
-                    'Best for small startups and basic operations',
                     '1 core feature of choice',
                     'Basic setup and support',
                     'Cloud-based access',
-                    'Options: QR Implementation, Basic Forecasting, AI Chatbot, 3D Viewer'
+                    '5 accounts + 1 admin account',
+                    '3 months free maintenance',
+                    'Domain and Hosting'
                 ],
                 'type' => 'Starter'
             ],
             [
-                'name' => 'Package B',
+                'name' => 'Pro Package',
                 'price' => 10500,
                 'features' => [
-                    'Designed for growing businesses needing advanced operational tools',
                     'Up to 3 features of choice',
                     'Priority support',
                     'System customization',
                     'Analytics dashboard',
-                    'Options: AI Chatbot/Report, AI-Assisted Forecasting, QR Ordering, Image Recognition, 3D Viewer'
+                    '25 accounts + 5 admin accounts',
+                    '6 months free maintenance',
+                    'Custom Domain and Hosting'
                 ],
                 'type' => 'Pro'
             ],
             [
-                'name' => 'Package C',
+                'name' => 'Enterprise Package',
                 'price' => 18000,
                 'features' => [
-                    'For large establishments requiring highly customized systems',
                     'Up to 5 integrated features',
                     'Advanced customization',
+                    'Priority support',
                     'Dedicated technical support',
                     'Scalable cloud infrastructure',
-                    'Options: AI Chatbot/Report, Adv. Forecasting, QR Access, Image Recognition, 3D Customization'
+                    'Unlimited accounts',
+                    '1 year free maintenance',
+                    'Custom Domain and Hosting'
                 ],
                 'type' => 'Enterprise'
             ]
