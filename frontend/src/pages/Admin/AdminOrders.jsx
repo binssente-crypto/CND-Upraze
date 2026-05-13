@@ -276,6 +276,11 @@ const AdminOrders = () => {
                                     Update Status:
                                 </div>
                                 <div className="flex gap-2">
+                                    {selectedOrder.status === 'pending' && (
+                                        <button onClick={() => handleStatusUpdate(selectedOrder.id, 'approved')} className="px-4 py-2 bg-primary-500/10 text-primary-500 border border-primary-500/20 hover:bg-primary-500 hover:text-white rounded-lg text-xs font-bold transition-colors shadow-[0_0_15px_rgba(var(--primary-rgb),0.2)]">
+                                            Approve & Send Invoice
+                                        </button>
+                                    )}
                                     <button onClick={() => handleStatusUpdate(selectedOrder.id, 'processing')} className="px-4 py-2 bg-blue-500/10 text-blue-500 border border-blue-500/20 hover:bg-blue-500 hover:text-white rounded-lg text-xs font-bold transition-colors">
                                         Processing
                                     </button>

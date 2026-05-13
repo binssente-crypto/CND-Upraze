@@ -45,13 +45,12 @@ const BillingPage = () => {
       });
       if (res.ok) {
         const data = await res.json();
-        showNotification("Order submitted successfully! Redirecting to payment...", "success");
+        showNotification("Order submitted successfully! Please wait for admin approval. You will receive a message with your payment link once approved.", "success");
         setShowOrderModal(false);
         setFormData({ company_name: '', short_description: '', design_preference: '', feature_options: '' });
         
-        if (data.payment_url) {
-            setTimeout(() => { window.location.href = data.payment_url; }, 1500);
-        }
+        // Navigate to support center or just let them stay
+        setTimeout(() => { navigate('/dashboard/support'); }, 3000);
       } else {
         const errData = await res.json();
         showNotification(errData.message || "Failed to submit order", "error");

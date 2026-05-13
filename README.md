@@ -94,16 +94,15 @@ flowchart TD
     DASHBOARD --> SELECT["Select Service\nPackage"]
     SELECT --> CONFIRM_PKG{"Confirm\nPackage?"}
     CONFIRM_PKG -- "No" --> SELECT
-    CONFIRM_PKG -- "Yes" --> PAYMENT["Payment Method\n(Xendit Gateway)"]
-    PAYMENT --> ORDER_DETAILS["Order Details\n& Summary"]
-    ORDER_DETAILS --> CONFIRM_ORDER{"Confirm\nOrder?"}
-    CONFIRM_ORDER -- "No" --> SELECT
-    CONFIRM_ORDER -- "Yes" --> PROCESS["Process Payment\n(Xendit Invoice)"]
-    PROCESS --> WEBHOOK["Xendit Webhook\nCallback"]
+    CONFIRM_PKG -- "Yes" --> SUBMIT["Submit Order\n(Pending)"]
+    SUBMIT --> ADMIN_REVIEW["Admin Reviews\n& Approves Order"]
+    ADMIN_REVIEW --> INBOX["Receive Payment Link\nvia Support Inbox"]
+    INBOX --> PAYMENT["Process Payment\n(Xendit Gateway)"]
+    PAYMENT --> WEBHOOK["Xendit Webhook\nCallback"]
     WEBHOOK --> STATUS{"Payment\nStatus?"}
-    STATUS -- "PAID" --> COMPLETE["Order Confirmed\n Status: Processing"]
-    STATUS -- "FAILED" --> RETRY["Redirect to\nBilling Page"]
-    RETRY --> SELECT
+    STATUS -- "PAID" --> COMPLETE["Order Processing\n✅ Email Receipt Sent"]
+    STATUS -- "FAILED" --> RETRY["Retry Payment"]
+    RETRY --> INBOX
     COMPLETE --> FINISH(["END"])
 
     style START fill:#1a1a2e,stroke:#e94560,color:#fff
@@ -115,10 +114,10 @@ flowchart TD
     style DASHBOARD fill:#533483,stroke:#e94560,color:#fff
     style SELECT fill:#16213e,stroke:#0f3460,color:#fff
     style CONFIRM_PKG fill:#e94560,stroke:#1a1a2e,color:#fff
+    style SUBMIT fill:#16213e,stroke:#0f3460,color:#fff
+    style ADMIN_REVIEW fill:#0f3460,stroke:#e94560,color:#fff
+    style INBOX fill:#533483,stroke:#e94560,color:#fff
     style PAYMENT fill:#0f3460,stroke:#e94560,color:#fff
-    style ORDER_DETAILS fill:#16213e,stroke:#0f3460,color:#fff
-    style CONFIRM_ORDER fill:#e94560,stroke:#1a1a2e,color:#fff
-    style PROCESS fill:#0f3460,stroke:#e94560,color:#fff
     style WEBHOOK fill:#0f3460,stroke:#e94560,color:#fff
     style STATUS fill:#e94560,stroke:#1a1a2e,color:#fff
     style COMPLETE fill:#533483,stroke:#0f3460,color:#fff
@@ -141,13 +140,12 @@ flowchart TD
     DASHBOARD --> PRODUCTS["Service Packages\n(Billing Page)"]
     PRODUCTS --> CHOOSE["Choosing of\nService Plan"]
     CHOOSE --> FILL_DETAILS["Fill Up Company\n& Order Details"]
-    FILL_DETAILS --> CHECKOUT["Checkout\n(Xendit Payment)"]
-    CHECKOUT --> CONFIRM_ADMIN["Confirm Order\nby Admin"]
-    CONFIRM_ADMIN --> GENERATE["Generate Invoice\n& Reference Code"]
-    GENERATE --> RECEIPT["Send Email\nReceipt"]
-    RECEIPT --> UPDATE["Update Order Status\non Dashboard"]
-    UPDATE --> PAYMENT["Complete Payment\nvia Xendit"]
-    PAYMENT --> FINISH(["End"])
+    FILL_DETAILS --> WAIT_ADMIN["Wait for Admin\nConfirmation"]
+    WAIT_ADMIN --> SUPPORT_MSG["Receive Payment Link\nvia Support Inbox"]
+    SUPPORT_MSG --> CHECKOUT["Checkout\n(Xendit Payment)"]
+    CHECKOUT --> RECEIPT["Send Email\nReceipt"]
+    RECEIPT --> UPDATE["Update Order Status\nto Processing"]
+    UPDATE --> FINISH(["End"])
 
     style START fill:#1a1a2e,stroke:#e94560,color:#fff
     style REGISTER fill:#16213e,stroke:#0f3460,color:#fff
@@ -158,12 +156,11 @@ flowchart TD
     style PRODUCTS fill:#16213e,stroke:#0f3460,color:#fff
     style CHOOSE fill:#16213e,stroke:#0f3460,color:#fff
     style FILL_DETAILS fill:#16213e,stroke:#0f3460,color:#fff
+    style WAIT_ADMIN fill:#0f3460,stroke:#e94560,color:#fff
+    style SUPPORT_MSG fill:#533483,stroke:#e94560,color:#fff
     style CHECKOUT fill:#0f3460,stroke:#e94560,color:#fff
-    style CONFIRM_ADMIN fill:#0f3460,stroke:#e94560,color:#fff
-    style GENERATE fill:#0f3460,stroke:#e94560,color:#fff
     style RECEIPT fill:#533483,stroke:#e94560,color:#fff
     style UPDATE fill:#533483,stroke:#e94560,color:#fff
-    style PAYMENT fill:#533483,stroke:#0f3460,color:#fff
     style FINISH fill:#1a1a2e,stroke:#e94560,color:#fff
 ```
 
