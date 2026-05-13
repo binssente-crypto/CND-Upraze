@@ -8,6 +8,28 @@ use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'nickname' => 'nullable|string|min:2|max:50',
+            'company_name' => 'nullable|string|max:255',
+        ]);
+
+        $user = $request->user();
+        if ($request->has('nickname')) {
+            $user->nickname = $request->nickname;
+        }
+        if ($request->has('company_name')) {
+            $user->company_name = $request->company_name;
+        }
+        $user->save();
+
+        return response()->json([
+            'user' => $user->fresh(),
+            'message' => 'Profile updated successfully.',
+        ]);
+    }
+
     public function updateNickname(Request $request)
     {
         $request->validate([
@@ -20,6 +42,21 @@ class ProfileController extends Controller
         return response()->json([
             'user' => $user->fresh(),
             'message' => 'Nickname updated successfully.',
+        ]);
+    }
+
+    public function updateCompany(Request $request)
+    {
+        $request->validate([
+            'company_name' => 'nullable|string|max:255',
+        ]);
+
+        $user = $request->user();
+        $user->update(['company_name' => $request->company_name]);
+
+        return response()->json([
+            'user' => $user->fresh(),
+            'message' => 'Company updated successfully.',
         ]);
     }
 

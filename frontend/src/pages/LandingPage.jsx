@@ -20,7 +20,12 @@ import {
   CheckCircle2,
   CreditCard,
   Building2,
-  Check
+  Check,
+  MousePointer2,
+  LayoutTemplate,
+  Settings,
+  X,
+  MessageSquare
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import LegalModal from '../components/LegalModal';
@@ -317,6 +322,27 @@ const services = [
 const LandingPage = () => {
   const [legalModal, setLegalModal] = React.useState({ isOpen: false, type: 'privacy' });
   const [isPublicChatOpen, setIsPublicChatOpen] = React.useState(false);
+  const [offers, setOffers] = React.useState([]);
+  const [isLoadingOffers, setIsLoadingOffers] = React.useState(true);
+
+  React.useEffect(() => {
+    const fetchOffers = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+        const response = await fetch(`${apiUrl}/offers`);
+        if (response.ok) {
+          const data = await response.json();
+          const activeOffers = data.filter(offer => offer.status && offer.status.toLowerCase() === 'active');
+          setOffers(activeOffers);
+        }
+      } catch (error) {
+        console.error("Failed to fetch offers:", error);
+      } finally {
+        setIsLoadingOffers(false);
+      }
+    };
+    fetchOffers();
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -563,6 +589,62 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Why Work With Us Section */}
+      <section id="why-us" className="py-32 px-6 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-500/5 blur-[120px] rounded-full pointer-events-none" />
+        
+        <div className="max-w-6xl mx-auto relative z-10">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-6xl font-black mb-16 text-center tracking-tight font-outfit uppercase"
+          >
+            Why Work With <span className="text-primary-500">Us?</span>
+          </motion.h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                title: "STRONG BRANDING AND IDENTITY",
+                desc: "We don't just build systems, we craft experiences that reflect your brand's personality and values. Every design, interaction, and solution is carefully shaped to make your business memorable, recognizable, and trusted by your audience.",
+                icon: <Star className="w-8 h-8 text-primary-500" />
+              },
+              {
+                title: "COLLABORATION AND COMMUNICATION",
+                desc: "We believe great results come from clear communication. From start to finish, we keep you fully informed, involved, and aligned with every decision. No confusion, just smooth, transparent collaboration that ensures your vision becomes reality.",
+                icon: <CheckCircle2 className="w-8 h-8 text-blue-400" />
+              },
+              {
+                title: "ORGANIZED DEVELOPMENT",
+                desc: "Our approach to development is thorough and methodical. Every project is carefully planned, meticulously executed, and constantly refined to meet your exact needs. The result is reliable, efficient, and scalable systems built with precision and attention to every detail.",
+                icon: <Layers className="w-8 h-8 text-purple-400" />
+              }
+            ].map((item, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="glass-card glass-card-hover p-10 flex flex-col relative group"
+              >
+                <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                  {item.icon}
+                </div>
+                <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center mb-8 relative z-10">
+                  {item.icon}
+                </div>
+                <h3 className="text-xl md:text-2xl font-black mb-4 font-outfit tracking-tight uppercase relative z-10">{item.title}</h3>
+                <p className="text-gray-400 font-medium leading-relaxed relative z-10">
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
       <section id="pricing" className="py-32 px-8 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/5 blur-[150px] rounded-full -z-10" />
@@ -587,136 +669,87 @@ const LandingPage = () => {
             </motion.p>
           </div>
 
-          {/* Tier 1 — Prebuilt Systems */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-8"
-          >
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                <Rocket className="w-5 h-5 text-blue-400" />
-              </div>
-              <div>
-                <h3 className="text-lg font-black font-outfit tracking-tight">Prebuilt Systems</h3>
-                <p className="text-xs text-gray-500 font-medium">Template-based • Fast deployment • No branding</p>
-              </div>
+          {isLoadingOffers ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="w-12 h-12 border-4 border-[#f97316] border-t-transparent rounded-full animate-spin"></div>
             </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {offers.map((plan, idx) => {
+                  const isPopularFallback = idx === 1 && offers.length >= 3;
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
-              {[
-                { name: 'Package 1A', price: '3,500', features: ['1 Feature', 'Domain & Hosting', 'Maintenance'], count: '1 Feature' },
-                { name: 'Package 1B', price: '6,500', features: ['2–3 Features', 'Domain & Hosting', 'Maintenance', 'Priority Support'], count: '2–3 Features', popular: true },
-                { name: 'Package 1C', price: '12,000', features: ['4–5 Features', 'Domain & Hosting', 'Maintenance', 'Priority Support', 'Extended SLA'], count: '4–5 Features' },
-              ].map((plan, idx) => (
-                <motion.div 
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className={`glass-card p-10 flex flex-col relative group transition-all duration-500 ${plan.popular ? 'border-blue-500/30 bg-blue-500/[0.02]' : 'hover:bg-white/[0.03]'}`}
-                >
-                  {plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-cyan-400 px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl shadow-blue-500/20 text-white border border-white/10">Most Popular</div>
-                  )}
-                  
-                  <div className="mb-8">
-                    <h3 className="text-2xl font-black mb-2 font-outfit tracking-tight">{plan.name}</h3>
-                    <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg text-blue-400 bg-blue-500/10 border border-blue-500/20">{plan.count}</span>
-                    <div className="flex items-baseline gap-2 mt-6">
-                      <span className="text-5xl font-black font-outfit tracking-tighter">₱{plan.price}</span>
-                      <span className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">/ month</span>
-                    </div>
-                  </div>
+                  return (
+                    <motion.div 
+                      key={plan.id || idx}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: idx * 0.1 }}
+                      className={`glass-card p-10 flex flex-col relative group transition-all duration-500 border ${
+                        isPopularFallback 
+                          ? 'border-[#f97316]/50 shadow-2xl shadow-orange-500/10 bg-[#f97316]/[0.02]' 
+                          : 'border-white/[0.05] hover:border-white/[0.1] bg-[#050505]/80'
+                      } rounded-[2rem]`}
+                    >
+                      {isPopularFallback && (
+                        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#f97316] to-[#fb923c] px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl shadow-orange-500/30 text-white border border-white/10 z-10">Most Popular</div>
+                      )}
 
-                  <div className="space-y-5 flex-1 mb-10">
-                    {plan.features.map((feature, i) => (
-                      <div key={i} className="flex items-center gap-4 text-gray-400 font-medium">
-                        <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
-                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      {plan.type && (
+                        <div className="absolute top-6 right-6 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg text-white bg-white/10 border border-white/20 z-10 backdrop-blur-md">
+                          {plan.type}
                         </div>
-                        <span className="text-sm">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
+                      )}
 
-                  <Link to="/register" className={`btn-primary w-full !rounded-2xl !py-5 font-black tracking-widest text-xs uppercase text-center ${
-                      !plan.popular && 'bg-white/[0.05] hover:bg-white/[0.08] text-white border border-white/10 shadow-none'
-                  }`}>
-                    Get Started
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Tier 2 — Custom Systems */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-center gap-3 mb-8 mt-16">
-              <div className="w-10 h-10 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center">
-                <Building2 className="w-5 h-5 text-primary-500" />
-              </div>
-              <div>
-                <h3 className="text-lg font-black font-outfit tracking-tight">Custom Systems</h3>
-                <p className="text-xs text-gray-500 font-medium">Full customization • Full branding • Bespoke design</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl pt-6">
-              {[
-                { name: 'Package 2A', price: '22,000', features: ['Full Customization', '2–3 Features', 'Full Branding Suite', 'Domain & Hosting', 'Maintenance'], count: '2–3 Features' },
-                { name: 'Package 2B', price: '40,000', features: ['Full Customization', '4–5 Features', 'Full Branding Suite', 'Image Recognition', 'Domain & Hosting', 'Dedicated Manager'], count: '4–5 Features', popular: true },
-              ].map((plan, idx) => (
-                <motion.div 
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className={`glass-card p-10 flex flex-col relative group transition-all duration-500 ${plan.popular ? 'border-primary-500/30 bg-primary-500/[0.02]' : 'hover:bg-white/[0.03]'}`}
-                >
-                  {plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary-600 to-orange-400 px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl shadow-primary-500/20 text-white border border-white/10">Premium</div>
-                  )}
-
-                  <div className="mb-8">
-                    <h3 className="text-2xl font-black mb-2 font-outfit tracking-tight">{plan.name}</h3>
-                    <div className="flex gap-2">
-                      <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg text-primary-500 bg-primary-500/10 border border-primary-500/20">{plan.count}</span>
-                      <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg text-purple-400 bg-purple-500/10 border border-purple-500/20">Full Branding</span>
-                    </div>
-                    <div className="flex items-baseline gap-2 mt-6">
-                      <span className="text-5xl font-black font-outfit tracking-tighter">₱{plan.price}</span>
-                      <span className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">/ month</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-5 flex-1 mb-10">
-                    {plan.features.map((feature, i) => (
-                      <div key={i} className="flex items-center gap-4 text-gray-400 font-medium">
-                        <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
-                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <div className="mb-8 mt-4">
+                        <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6">
+                           <LayoutTemplate className="w-5 h-5 text-blue-400" />
                         </div>
-                        <span className="text-sm">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
+                        <h3 className="text-2xl font-black mb-3 font-outfit tracking-tight text-white">{plan.name}</h3>
+                        <div className="flex gap-2">
+                          <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full text-blue-400 bg-blue-500/10 border border-blue-500/20">
+                            {plan.features?.length || 0} Feature{plan.features?.length !== 1 && 's'}
+                          </span>
+                        </div>
+                        
+                        <p className="text-sm text-gray-500 font-medium leading-relaxed mt-6 mb-8 min-h-[60px]">
+                          {plan.description || "A powerful system designed to streamline your business operations and accelerate growth."}
+                        </p>
 
-                  <Link to="/register" className={`btn-primary w-full !rounded-2xl !py-5 font-black tracking-widest text-xs uppercase text-center ${
-                      !plan.popular && 'bg-white/[0.05] hover:bg-white/[0.08] text-white border border-white/10 shadow-none'
-                  }`}>
-                    Get Started
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-5xl font-black font-outfit tracking-tighter text-white">₱{plan.price}</span>
+                          <span className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">/ {plan.interval}</span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4 flex-1 mb-10 pt-6 border-t border-white/[0.05]">
+                        {Array.isArray(plan.features) && plan.features.map((feature, i) => {
+                          const isNegative = feature.toLowerCase().startsWith('no ') || feature.toLowerCase().startsWith('not ');
+                          return (
+                            <div key={i} className={`flex items-center gap-4 ${isNegative ? 'text-gray-600' : 'text-gray-300'} font-medium`}>
+                              <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${isNegative ? 'bg-red-500/10' : 'bg-emerald-500/10'}`}>
+                                {isNegative ? <X className="w-3 h-3 text-red-500" /> : <Check className="w-3 h-3 text-emerald-500" />}
+                              </div>
+                              <span className="text-sm">{feature}</span>
+                            </div>
+                          )
+                        })}
+                      </div>
+
+                      <Link to="/register" className={`w-full py-4 rounded-xl font-black tracking-widest text-xs uppercase text-center flex items-center justify-center gap-2 transition-all duration-300 ${
+                          isPopularFallback 
+                            ? 'bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white hover:opacity-90 shadow-lg shadow-orange-500/20' 
+                            : 'bg-[#111] text-gray-300 hover:text-white border border-white/5 hover:bg-[#222]'
+                      }`}>
+                        <MessageSquare className="w-4 h-4" /> Inquire Now
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
       </section>
 

@@ -137,19 +137,19 @@ const SupportCenter = () => {
 
             <div className="flex-1 overflow-y-auto p-8 space-y-6 custom-scrollbar">
               {activeThread.messages?.map((msg, idx) => {
-                const isAdmin = msg.sender?.role === 'admin';
+                const isAdmin = msg.sender?.role === 'admin' || msg.sender?.role === 'superadmin';
                 const isMe = !isAdmin;
                 return (
                   <motion.div key={msg.id || idx} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex gap-4 ${isMe ? 'flex-row-reverse' : ''}`}>
                     <div className={`w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center shadow-md ${isMe ? 'bg-primary-600' : 'bg-dark-card border border-dark-border'}`}>
                       {isMe ? <User className="w-4 h-4" /> : <ShieldCheck className="w-4 h-4 text-primary-500" />}
                     </div>
-                    <div className={`max-w-[70%] space-y-1 ${isMe ? 'text-right' : ''}`}>
+                    <div className={`max-w-[70%] space-y-1 flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
                       <div className="flex items-center gap-2 mb-1 px-1">
                         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{msg.sender?.name || 'You'}</span>
                         <span className="text-[10px] text-gray-600">{msg.created_at ? new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}</span>
                       </div>
-                      <div className={`p-4 rounded-2xl text-sm leading-relaxed shadow-sm ${isMe ? 'bg-primary-600 text-white rounded-tr-none' : 'bg-dark-bg border border-dark-border rounded-tl-none text-gray-200'}`}>
+                      <div className={`p-4 rounded-2xl text-sm leading-relaxed shadow-sm text-left ${isMe ? 'bg-primary-600 text-white rounded-tr-none' : 'bg-dark-bg border border-dark-border rounded-tl-none text-gray-200'}`}>
                         {msg.message}
                       </div>
                     </div>

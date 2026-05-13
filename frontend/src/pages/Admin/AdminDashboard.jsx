@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Users, DollarSign, Database, TrendingUp, Search, Filter, ShieldCheck, AlertTriangle, Loader2, X } from 'lucide-react';
+import { Users, DollarSign, Database, TrendingUp, Search, Filter, ShieldCheck, AlertTriangle, Loader2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -10,6 +10,8 @@ const AdminDashboard = () => {
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState(null);
    const [searchTerm, setSearchTerm] = useState('');
+   const [currentPage, setCurrentPage] = useState(1);
+   const usersPerPage = 10;
    const [currentRole, setCurrentRole] = useState('user');
 
    // Custom Notification State
@@ -118,6 +120,14 @@ const AdminDashboard = () => {
       user.name.toLowerCase().includes(searchTerm.toLowerCase())
    );
 
+   useEffect(() => {
+      setCurrentPage(1);
+   }, [searchTerm]);
+
+   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+   const startIndex = (currentPage - 1) * usersPerPage;
+   const paginatedUsers = filteredUsers.slice(startIndex, startIndex + usersPerPage);
+
    return (
       <div className="space-y-6">
 
@@ -131,25 +141,25 @@ const AdminDashboard = () => {
             </div>
          )}
 
+         {/* Search & Filter Actions */}
+         <div className="flex justify-end mb-4">
+            <div className="flex gap-2 w-full md:w-auto">
+               <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <input
+                     type="text"
+                     className="input-field pl-10 py-2 h-10 text-sm"
+                     placeholder="Search name or email..."
+                     value={searchTerm}
+                     onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+               </div>
+               <button className="p-2 border border-dark-border bg-[#0A0A0A] rounded-lg text-gray-400 hover:text-white transition-colors"><Filter className="w-5 h-5" /></button>
+            </div>
+         </div>
+
          {/* User Management Table */}
          <div className="glass-card overflow-hidden">
-            <div className="p-6 border-b border-dark-border flex flex-col md:flex-row justify-between items-center gap-4">
-               <h3 className="font-bold text-lg text-white">User Directory</h3>
-               <div className="flex gap-2 w-full md:w-auto">
-                  <div className="relative flex-1">
-                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                     <input
-                        type="text"
-                        className="input-field pl-10 py-2 h-10 text-sm"
-                        placeholder="Search name or email..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                     />
-                  </div>
-                  <button className="p-2 border border-dark-border rounded-lg text-gray-400 hover:text-white transition-colors"><Filter className="w-5 h-5" /></button>
-               </div>
-            </div>
-
             <div className="overflow-x-auto min-h-[300px]">
                {loading ? (
                   <div className="flex flex-col items-center justify-center h-[300px] gap-4">
@@ -162,13 +172,14 @@ const AdminDashboard = () => {
                         <tr>
                            <th className="px-8 py-4">User</th>
                            <th className="px-8 py-4">Role</th>
+                           <th className="px-8 py-4">Company</th>
                            <th className="px-8 py-4">Plan</th>
                            <th className="px-8 py-4">Status</th>
                            <th className="px-8 py-4 text-right">Actions</th>
                         </tr>
                      </thead>
                      <tbody className="divide-y divide-dark-border">
-                        {filteredUsers.map((user) => (
+                        {paginatedUsers.map((user) => (
                            <tr key={user.id} className="hover:bg-white/[0.02] transition-colors group">
                               <td className="px-8 py-6">
                                  <p className="font-medium text-white">{user.name}</p>
@@ -178,6 +189,11 @@ const AdminDashboard = () => {
                                  <span className={`px-2 py-1 rounded text-[10px] font-black uppercase tracking-widest ${user.role === 'admin' ? 'bg-orange-500/10 text-orange-500 border border-orange-500/20' : 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
                                     }`}>
                                     {user.role}
+                                 </span>
+                              </td>
+                              <td className="px-8 py-6">
+                                 <span className="px-2 py-1 bg-white/5 border border-dark-border rounded text-xs text-gray-400">
+                                    {['admin', 'superadmin'].includes(user.role) ? 'CND Upraze' : (user.company || 'N/A')}
                                  </span>
                               </td>
                               <td className="px-8 py-6">
@@ -224,13 +240,37 @@ const AdminDashboard = () => {
                         ))}
                         {filteredUsers.length === 0 && (
                            <tr>
-                              <td colSpan="5" className="px-8 py-12 text-center text-gray-500 text-sm">No users found.</td>
+                              <td colSpan="6" className="px-8 py-12 text-center text-gray-500 text-sm">No users found.</td>
                            </tr>
                         )}
                      </tbody>
                   </table>
                )}
             </div>
+            
+            {!loading && totalPages > 1 && (
+               <div className="p-4 border-t border-dark-border flex items-center justify-between bg-black/20">
+                  <span className="text-xs text-gray-500 font-medium">
+                     Showing {startIndex + 1} to {Math.min(startIndex + usersPerPage, filteredUsers.length)} of {filteredUsers.length} users
+                  </span>
+                  <div className="flex gap-2">
+                     <button 
+                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1}
+                        className="p-1.5 rounded-lg bg-white/5 border border-dark-border text-gray-400 disabled:opacity-30 hover:text-white hover:bg-white/10 transition-colors"
+                     >
+                        <ChevronLeft className="w-4 h-4" />
+                     </button>
+                     <button 
+                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                        className="p-1.5 rounded-lg bg-white/5 border border-dark-border text-gray-400 disabled:opacity-30 hover:text-white hover:bg-white/10 transition-colors"
+                     >
+                        <ChevronRight className="w-4 h-4" />
+                     </button>
+                  </div>
+               </div>
+            )}
          </div>
 
          {/* Custom Confirmation Modal */}

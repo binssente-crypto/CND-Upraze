@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, User, Lock, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { X, User, Lock, CheckCircle, AlertCircle, Loader2, Building } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const ProfileModal = ({ user, isOpen, onClose, onUpdate }) => {
   const [activeTab, setActiveTab] = useState('profile');
   const [nickname, setNickname] = useState(user?.nickname || '');
+  const [companyName, setCompanyName] = useState(user?.company_name || '');
   const [passwords, setPasswords] = useState({ current: '', new: '', confirm: '' });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null); // { type: 'success' | 'error', message: string }
@@ -19,25 +20,25 @@ const ProfileModal = ({ user, isOpen, onClose, onUpdate }) => {
     }
   }, [status]);
 
-  const handleUpdateNickname = async (e) => {
+  const handleUpdateProfile = async (e) => {
     e.preventDefault();
     
-    if (nickname === user?.nickname) {
-      setStatus({ type: 'error', message: 'Your nickname is already this nickname' });
+    if (nickname === user?.nickname && companyName === user?.company_name) {
+      setStatus({ type: 'error', message: 'No changes made to profile' });
       return;
     }
 
     setLoading(true);
     setStatus(null);
     try {
-      const res = await fetch(`${API_URL}/profile/update-nickname`, {
+      const res = await fetch(`${API_URL}/profile/update-profile`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify({ nickname })
+        body: JSON.stringify({ nickname, company_name: companyName })
       });
       const data = await res.json();
       if (res.ok) {
@@ -151,7 +152,7 @@ const ProfileModal = ({ user, isOpen, onClose, onUpdate }) => {
               )}
 
               {activeTab === 'profile' ? (
-                <form onSubmit={handleUpdateNickname} className="space-y-6">
+                <form onSubmit={handleUpdateProfile} className="space-y-6">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Platform Nickname</label>
                     <div className="relative group">
@@ -166,9 +167,26 @@ const ProfileModal = ({ user, isOpen, onClose, onUpdate }) => {
                       />
                     </div>
                   </div>
+
+                  {!['admin', 'superadmin'].includes(user?.role) && (
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Company Name</label>
+                      <div className="relative group">
+                        <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-primary-500 transition-colors" />
+                        <input 
+                          type="text" 
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all" 
+                          placeholder="Your Company Name..." 
+                          value={companyName} 
+                          onChange={(e) => setCompanyName(e.target.value)} 
+                        />
+                      </div>
+                    </div>
+                  )}
+
                   <div className="p-4 bg-primary-500/5 border border-primary-500/10 rounded-2xl">
                     <p className="text-[10px] text-primary-400 font-bold leading-relaxed uppercase tracking-wider">
-                      This nickname will be visible across the CND Neural Ecosystem and used in executive reports.
+                      These details will be visible across the CND Neural Ecosystem and used in executive reports.
                     </p>
                   </div>
                   <button 

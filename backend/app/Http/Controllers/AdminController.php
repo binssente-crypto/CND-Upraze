@@ -40,6 +40,7 @@ class AdminController extends Controller
                     'id' => $user->id,
                     'name' => $user->nickname ?: $user->name,
                     'email' => $user->email,
+                    'company' => $user->company_name,
                     'role' => $user->role,
                     'plan' => $latestSubscription ? $latestSubscription->plan_name : 'No Plan',
                     'status' => $latestSubscription ? ucfirst($latestSubscription->status) : 'Inactive',
@@ -74,7 +75,12 @@ class AdminController extends Controller
             'role' => 'required|in:admin,user'
         ]);
 
-        $user->update(['role' => $validated['role']]);
+        $updateData = ['role' => $validated['role']];
+        if ($validated['role'] === 'admin') {
+            $updateData['company_name'] = 'CND Upraze';
+        }
+
+        $user->update($updateData);
 
         return response()->json(['message' => "User role updated to {$validated['role']}"]);
     }

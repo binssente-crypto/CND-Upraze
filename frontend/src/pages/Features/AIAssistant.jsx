@@ -7,6 +7,7 @@ const AIAssistant = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [conversationId, setConversationId] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const messagesEndRef = useRef(null);
 
   const API_URL = import.meta.env.VITE_API_URL;
@@ -84,8 +85,71 @@ const AIAssistant = () => {
     }
   };
 
+  const handleClearHistory = () => {
+    if (!conversationId) {
+      setMessages([{ role: 'assistant', content: "Hello! I'm your Upraze AI Assistant. How can I help you optimize your business today?", ts: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
+      return;
+    }
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmClearHistory = async () => {
+    setShowDeleteConfirm(false);
+
+    try {
+      const response = await fetch(`${API_URL}/features/ai-assistant/${conversationId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setConversationId(null);
+        setMessages([{ role: 'assistant', content: "Hello! I'm your Upraze AI Assistant. How can I help you optimize your business today?", ts: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
+      }
+    } catch (err) {
+      console.error("Failed to delete conversation:", err);
+    }
+  };
+
   return (
-    <div className="h-[calc(100vh-10rem)] flex flex-col glass-card overflow-hidden">
+    <div className="h-[calc(100vh-10rem)] flex flex-col glass-card overflow-hidden relative">
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirm && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="glass-card p-8 rounded-3xl border border-white/10 max-w-sm w-full relative overflow-hidden shadow-2xl"
+          >
+            <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 blur-[50px] rounded-full pointer-events-none" />
+            <div className="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-6">
+               <Trash2 className="w-6 h-6 text-red-500" />
+            </div>
+            <h3 className="text-xl font-black font-outfit uppercase tracking-tight text-white mb-2">Clear History?</h3>
+            <p className="text-gray-400 text-sm leading-relaxed mb-8">
+              Are you sure you want to delete your conversation history? This action cannot be undone and the AI will lose all current context.
+            </p>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => setShowDeleteConfirm(false)}
+                className="flex-1 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-widest text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmClearHistory}
+                className="flex-1 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-widest text-white bg-red-500 hover:bg-red-600 transition-colors shadow-lg shadow-red-500/20"
+              >
+                Delete
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="p-6 border-b border-dark-border flex justify-between items-center bg-white/5">
         <div className="flex items-center gap-4">
@@ -103,7 +167,13 @@ const AIAssistant = () => {
           </div>
         </div>
         <div className="flex gap-2">
-           <button className="p-2 hover:bg-white/5 rounded-lg text-gray-500 hover:text-white transition-colors"><Trash2 className="w-5 h-5" /></button>
+           <button 
+             onClick={handleClearHistory}
+             className="p-2 hover:bg-red-500/10 rounded-lg text-gray-500 hover:text-red-500 transition-colors"
+             title="Clear Chat History"
+           >
+             <Trash2 className="w-5 h-5" />
+           </button>
            <button className="p-2 hover:bg-white/5 rounded-lg text-gray-500 hover:text-white transition-colors"><MoreVertical className="w-5 h-5" /></button>
         </div>
       </div>

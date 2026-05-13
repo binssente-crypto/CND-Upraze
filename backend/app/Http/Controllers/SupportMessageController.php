@@ -16,7 +16,7 @@ class SupportMessageController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role !== 'admin' && $thread->user_id !== $user->id) {
+        if (!in_array($user->role, ['admin', 'superadmin']) && $thread->user_id !== $user->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
@@ -32,7 +32,7 @@ class SupportMessageController extends Controller
 
         // Update thread status based on who sent it
         $thread->update([
-            'status' => $user->role === 'admin' ? 'responded' : 'open',
+            'status' => in_array($user->role, ['admin', 'superadmin']) ? 'responded' : 'open',
         ]);
 
         $message->load('sender:id,name,role,avatar');
@@ -47,7 +47,7 @@ class SupportMessageController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role !== 'admin' && $thread->user_id !== $user->id) {
+        if (!in_array($user->role, ['admin', 'superadmin']) && $thread->user_id !== $user->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 

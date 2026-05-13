@@ -21,7 +21,9 @@ import {
   Search,
   ChevronRight,
   Users,
-  Tag
+  Tag,
+  ChevronDown,
+  FileText
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../components/Logo';
@@ -31,11 +33,19 @@ import ProfileModal from '../components/ProfileModal';
 
 const userSidebarItems = [
   { icon: LayoutDashboard, label: 'Overview', path: '/dashboard' },
-  { icon: Bot, label: 'AI Assistant', path: '/dashboard/ai-assistant' },
-  { icon: LineChart, label: 'Forecasting', path: '/dashboard/forecasting' },
-  { icon: Box, label: '3D Manipulation', path: '/dashboard/3d-manipulation' },
-  { icon: ImageIcon, label: 'Image Recognition', path: '/dashboard/image-recognition' },
-  { icon: QrCode, label: 'QR Codes', path: '/dashboard/qr-codes' },
+  { icon: FileText, label: 'Plan Overview', path: '/dashboard/plan-overview' },
+  { 
+    icon: LayoutGrid, 
+    label: 'Modules', 
+    id: 'modules',
+    subItems: [
+      { icon: Bot, label: 'AI Assistant', path: '/dashboard/ai-assistant' },
+      { icon: LineChart, label: 'Forecasting', path: '/dashboard/forecasting' },
+      { icon: Box, label: '3D Manipulation', path: '/dashboard/3d-manipulation' },
+      { icon: ImageIcon, label: 'Image Recognition', path: '/dashboard/image-recognition' },
+      { icon: QrCode, label: 'QR Codes', path: '/dashboard/qr-codes' },
+    ]
+  }
 ];
 
 const adminSidebarItems = [
@@ -43,6 +53,7 @@ const adminSidebarItems = [
   { icon: Users, label: 'User Directory', path: '/dashboard/admin/users' },
   { icon: Headphones, label: 'Support Control', path: '/dashboard/admin/inquiries' },
   { icon: Tag, label: 'Offer Management', path: '/dashboard/admin/offers' },
+  { icon: FileText, label: 'Orders', path: '/dashboard/admin/orders' },
 ];
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -54,11 +65,25 @@ const DashboardLayout = () => {
   const [showNicknameModal, setShowNicknameModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [expandedMenus, setExpandedMenus] = useState({});
+  const [unreadSupportCount, setUnreadSupportCount] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
 
   const isAdmin = ['admin', 'superadmin'].includes(user?.role);
   const currentSidebarItems = isAdmin ? adminSidebarItems : userSidebarItems;
+
+  useEffect(() => {
+    // Auto-expand modules if we're on a sub-item page
+    if (!isAdmin) {
+      const isModulePath = userSidebarItems.some(
+        item => item.subItems && item.subItems.some(sub => location.pathname === sub.path)
+      );
+      if (isModulePath) {
+        setExpandedMenus(prev => ({ ...prev, modules: true }));
+      }
+    }
+  }, [location.pathname, isAdmin]);
 
   useEffect(() => {
     const token = localStorage.getItem('auth_token');
@@ -73,6 +98,9 @@ const DashboardLayout = () => {
       .then(data => {
         if (data?.user) {
           setUser(data.user);
+          if (data.unread_support_count !== undefined) {
+             setUnreadSupportCount(data.unread_support_count);
+          }
           if (!data.user.nickname) setShowNicknameModal(true);
         }
       })
@@ -111,6 +139,13 @@ const DashboardLayout = () => {
 
   const displayName = user?.nickname || user?.name || 'User';
 
+  const toggleMenu = (menuId) => {
+    setExpandedMenus(prev => ({
+      ...prev,
+      [menuId]: !prev[menuId]
+    }));
+  };
+
   return (
     <>
     <div className="flex h-screen bg-[#030303] text-gray-100 overflow-hidden font-inter">
@@ -139,23 +174,76 @@ const DashboardLayout = () => {
 
             <nav className="flex-1 px-4 py-2 space-y-1 overflow-y-auto custom-scrollbar">
               <div className="px-4 mb-4 text-[10px] font-black text-gray-600 uppercase tracking-[0.3em]">Main Menu</div>
-              {currentSidebarItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-300 group ${
-                    location.pathname === item.path
-                      ? 'bg-primary-500 text-white shadow-xl shadow-primary-500/20'
-                      : 'text-gray-500 hover:bg-white/[0.03] hover:text-white'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <item.icon className={`w-5 h-5 ${location.pathname === item.path ? 'text-white' : 'group-hover:text-primary-500'}`} />
-                    <span className="text-[11px] font-black uppercase tracking-widest">{item.label}</span>
-                  </div>
-                  {location.pathname === item.path && <ChevronRight className="w-4 h-4" />}
-                </Link>
-              ))}
+              {currentSidebarItems.map((item) => {
+                if (item.subItems) {
+                  const isExpanded = expandedMenus[item.id];
+                  const isChildActive = item.subItems.some(subItem => location.pathname === subItem.path);
+                  return (
+                    <div key={item.id} className="space-y-1">
+                      <button
+                        onClick={() => toggleMenu(item.id)}
+                        className={`w-full flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-300 group ${
+                          isChildActive && !isExpanded
+                            ? 'bg-white/[0.03] text-white'
+                            : 'text-gray-500 hover:bg-white/[0.03] hover:text-white'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <item.icon className={`w-5 h-5 ${isChildActive ? 'text-white' : 'group-hover:text-primary-500'}`} />
+                          <span className={`text-[11px] font-black uppercase tracking-widest ${isChildActive ? 'text-white' : ''}`}>{item.label}</span>
+                        </div>
+                        {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                      </button>
+                      <AnimatePresence>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pl-4 pr-2 py-1 space-y-1 border-l-2 border-white/[0.05] ml-6 mt-1">
+                              {item.subItems.map((subItem) => (
+                                <Link
+                                  key={subItem.path}
+                                  to={subItem.path}
+                                  className={`flex items-center justify-between px-4 py-2.5 rounded-xl transition-all duration-300 group ${
+                                    location.pathname === subItem.path
+                                      ? 'bg-primary-500 text-white shadow-xl shadow-primary-500/20'
+                                      : 'text-gray-500 hover:bg-white/[0.03] hover:text-white'
+                                  }`}
+                                >
+                                  <div className="flex items-center gap-3">
+                                    <subItem.icon className={`w-4 h-4 ${location.pathname === subItem.path ? 'text-white' : 'group-hover:text-primary-500'}`} />
+                                    <span className="text-[10px] font-black uppercase tracking-widest">{subItem.label}</span>
+                                  </div>
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all duration-300 group ${
+                      location.pathname === item.path
+                        ? 'bg-primary-500 text-white shadow-xl shadow-primary-500/20'
+                        : 'text-gray-500 hover:bg-white/[0.03] hover:text-white'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <item.icon className={`w-5 h-5 ${location.pathname === item.path ? 'text-white' : 'group-hover:text-primary-500'}`} />
+                      <span className="text-[11px] font-black uppercase tracking-widest">{item.label}</span>
+                    </div>
+                  </Link>
+                );
+              })}
             </nav>
 
             {!isAdmin && (
@@ -163,14 +251,21 @@ const DashboardLayout = () => {
                 <div className="px-4 mb-4 text-[10px] font-black text-gray-600 uppercase tracking-[0.3em]">System</div>
                 <Link 
                   to="/dashboard/support" 
-                  className={`flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all group ${
+                  className={`flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all group ${
                     location.pathname === '/dashboard/support'
                       ? 'bg-primary-500/10 text-primary-500 border border-primary-500/20'
                       : 'text-gray-500 hover:bg-white/[0.03] hover:text-white'
                   }`}
                 >
-                  <Headphones className="w-5 h-5" />
-                  <span className="text-[11px] font-black uppercase tracking-widest">Support Center</span>
+                  <div className="flex items-center gap-3">
+                    <Headphones className="w-5 h-5" />
+                    <span className="text-[11px] font-black uppercase tracking-widest">Support Center</span>
+                  </div>
+                  {unreadSupportCount > 0 && (
+                    <div className="bg-primary-500 text-white text-[9px] font-black w-5 h-5 flex items-center justify-center rounded-full shadow-lg shadow-primary-500/20">
+                      {unreadSupportCount > 9 ? '9+' : unreadSupportCount}
+                    </div>
+                  )}
                 </Link>
                 <Link 
                   to="/dashboard/billing" 

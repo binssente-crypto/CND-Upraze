@@ -14,35 +14,43 @@ class OfferSeeder extends Seeder
     {
         $offers = [
             [
-                'name' => 'Package 1A',
+                'name' => 'Package A',
                 'price' => '3,500',
-                'features' => json_encode(['1 Feature', 'Domain & Hosting', 'Maintenance']),
-                'type' => 'Standard'
+                'features' => [
+                    'Best for small startups and basic operations',
+                    '1 core feature of choice',
+                    'Basic setup and support',
+                    'Cloud-based access',
+                    'Options: QR Implementation, Basic Forecasting, AI Chatbot, 3D Viewer'
+                ],
+                'type' => 'Starter'
             ],
             [
-                'name' => 'Package 1B',
-                'price' => '6,500',
-                'features' => json_encode(['2-3 Features', 'Domain & Hosting', 'Maintenance', 'Priority Support']),
-                'type' => 'Popular'
+                'name' => 'Package B',
+                'price' => '10,500',
+                'features' => [
+                    'Designed for growing businesses needing advanced operational tools',
+                    'Up to 3 features of choice',
+                    'Priority support',
+                    'System customization',
+                    'Analytics dashboard',
+                    'Options: AI Chatbot/Report, AI-Assisted Forecasting, QR Ordering, Image Recognition, 3D Viewer'
+                ],
+                'type' => 'Pro'
             ],
             [
-                'name' => 'Package 1C',
-                'price' => '12,000',
-                'features' => json_encode(['4-5 Features', 'Domain & Hosting', 'Maintenance', 'Priority Support', 'Extended SLA']),
-                'type' => 'Standard'
-            ],
-            [
-                'name' => 'Package 2A',
-                'price' => '22,000',
-                'features' => json_encode(['Full Customization', '2-3 Features', 'Full Branding Suite', 'Domain & Hosting', 'Maintenance']),
-                'type' => 'Standard'
-            ],
-            [
-                'name' => 'Package 2B',
-                'price' => '40,000',
-                'features' => json_encode(['Full Customization', '4-5 Features', 'Full Branding Suite', 'Image Recognition', 'Domain & Hosting', 'Dedicated Manager']),
-                'type' => 'Premium'
-            ],
+                'name' => 'Package C',
+                'price' => '18,000',
+                'features' => [
+                    'For large establishments requiring highly customized systems',
+                    'Up to 5 integrated features',
+                    'Advanced customization',
+                    'Dedicated technical support',
+                    'Scalable cloud infrastructure',
+                    'Options: AI Chatbot/Report, Adv. Forecasting, QR Access, Image Recognition, 3D Customization'
+                ],
+                'type' => 'Enterprise'
+            ]
         ];
 
         foreach ($offers as $offer) {

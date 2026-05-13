@@ -18,9 +18,9 @@ class SupportThreadController extends Controller
 
         $isAdmin = in_array($user->role, ['admin', 'superadmin']);
         $threads = ($isAdmin
-            ? SupportThread::select(['id', 'user_id', 'subject', 'category', 'status', 'created_at'])
+            ? SupportThread::select(['id', 'user_id', 'subject', 'category', 'status', 'created_at', 'assigned_admin_id'])
                 ->with(['user:id,name,email,avatar', 'latestMessage.sender:id,name'])
-            : SupportThread::select(['id', 'user_id', 'subject', 'category', 'status', 'created_at'])
+            : SupportThread::select(['id', 'user_id', 'subject', 'category', 'status', 'created_at', 'assigned_admin_id'])
                 ->where('user_id', $user->id)
                 ->with(['latestMessage.sender:id,name'])
         )
@@ -116,6 +116,36 @@ class SupportThreadController extends Controller
         $thread->update([
             'assigned_admin_id' => Auth::id(),
             'status' => 'in_progress',
+        ]);
+
+        return response()->json($thread);
+    }
+
+    public function reopen(SupportThread $thread)
+    {
+        $user = Auth::user();
+
+        if (!in_array($user->role, ['admin', 'superadmin']) && $thread->user_id !== $user->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $thread->update(['status' => 'open']);
+
+        return response()->json($thread);
+    }
+
+    /**
+     * Admin unassigns a thread.
+     */
+    public function unassign(Request $request, SupportThread $thread)
+    {
+        if (!in_array(Auth::user()->role, ['admin', 'superadmin'])) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $thread->update([
+            'assigned_admin_id' => null,
+            'status' => 'open',
         ]);
 
         return response()->json($thread);

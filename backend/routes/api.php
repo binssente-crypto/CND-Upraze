@@ -19,16 +19,21 @@ Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
 
 // Public Routes
 Route::post('/public/ai-chat', [\App\Http\Controllers\PublicAIChatbotController::class, 'chat']);
+Route::get('/offers', [\App\Http\Controllers\OfferController::class, 'index']);
+Route::post('/webhooks/xendit', [\App\Http\Controllers\OrderController::class, 'handleXenditWebhook']);
 
 // Protected Routes
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/set-nickname', [AuthController::class, 'setNickname']);
+    Route::get('/user/subscription', [App\Http\Controllers\SubscriptionController::class, 'current']);
     
     // Profile Management
     Route::prefix('profile')->group(function () {
+        Route::post('/update-profile', [ProfileController::class, 'updateProfile']);
         Route::post('/update-nickname', [ProfileController::class, 'updateNickname']);
+        Route::post('/update-company', [ProfileController::class, 'updateCompany']);
         Route::post('/change-password', [ProfileController::class, 'changePassword']);
     });
 
@@ -39,10 +44,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::patch('/users/{user}/role', [AdminController::class, 'updateUserRole']);
         Route::patch('/users/{user}/status', [AdminController::class, 'updateUserStatus']);
         Route::apiResource('offers', \App\Http\Controllers\OfferController::class);
+        Route::get('/orders', [\App\Http\Controllers\OrderController::class, 'index']);
+        Route::patch('/orders/{id}', [\App\Http\Controllers\OrderController::class, 'update']);
     });
 
-    // Public Offers (Read-only)
-    Route::get('/offers', [\App\Http\Controllers\OfferController::class, 'index']);
+    // User Orders
+    Route::post('/orders', [\App\Http\Controllers\OrderController::class, 'store']);
+
 
     // Support Chat System
     Route::prefix('support')->group(function () {
@@ -52,7 +60,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/threads/{thread}/messages', [SupportMessageController::class, 'store']);
         Route::patch('/threads/{thread}/messages/read', [SupportMessageController::class, 'markRead']);
         Route::patch('/threads/{thread}/close', [SupportThreadController::class, 'close']);
+        Route::patch('/threads/{thread}/reopen', [SupportThreadController::class, 'reopen']);
         Route::patch('/threads/{thread}/assign', [SupportThreadController::class, 'assign']);
+        Route::patch('/threads/{thread}/unassign', [SupportThreadController::class, 'unassign']);
     });
 
     // Features (demo-only, index endpoints)

@@ -22,12 +22,14 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'company_name' => 'nullable|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', Password::min(8)->mixedCase()->numbers()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'company_name' => $request->company_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'user',
@@ -126,9 +128,18 @@ class AuthController extends Controller
     public function me(Request $request)
     {
         $user = $request->user();
+        
+        $unreadSupportCount = \App\Models\SupportMessage::whereHas('thread', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })
+        ->where('is_read', false)
+        ->where('sender_id', '!=', $user->id)
+        ->count();
+
         return response()->json([
             'user' => $user,
-            'role' => $user->role
+            'role' => $user->role,
+            'unread_support_count' => $unreadSupportCount
         ]);
     }
 

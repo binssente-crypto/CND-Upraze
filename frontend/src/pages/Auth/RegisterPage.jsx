@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, User, UserPlus, ArrowLeft, Check, ShieldCheck, RefreshCcw } from 'lucide-react';
+import { Mail, Lock, User, UserPlus, ArrowLeft, Check, ShieldCheck, RefreshCcw, Building } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import LegalModal from '../../components/LegalModal';
 import Logo from '../../components/Logo';
@@ -10,7 +10,8 @@ const RegisterPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    password: ''
+    password: '',
+    company_name: ''
   });
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [timer, setTimer] = useState(30);
@@ -46,13 +47,14 @@ const RegisterPage = () => {
     try {
       const response = await fetch(`${API_URL}/register`, {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
+          company_name: formData.company_name,
           password: formData.password,
           password_confirmation: formData.password
         }),
@@ -103,7 +105,7 @@ const RegisterPage = () => {
     try {
       const response = await fetch(`${API_URL}/verify-otp`, {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
@@ -130,7 +132,7 @@ const RegisterPage = () => {
       {/* Loading Overlay */}
       {loading && (
         <div className="absolute inset-0 bg-dark-bg/40 backdrop-blur-[2px] z-50 flex items-center justify-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="flex flex-col items-center gap-4"
@@ -150,7 +152,7 @@ const RegisterPage = () => {
 
       <AnimatePresence mode="wait">
         {step === 'register' ? (
-          <motion.div 
+          <motion.div
             key="register"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -161,7 +163,7 @@ const RegisterPage = () => {
               <Logo className="h-12 justify-center mb-10" />
               <h2 className="text-3xl font-black font-outfit uppercase tracking-tight mb-2">Create Account</h2>
               <p className="text-gray-500 font-medium tracking-tight">Join Upraze Solutions and start scaling today</p>
-              
+
               {error && (
                 <div className="mt-6 bg-red-500/10 border border-red-500/20 text-red-500 p-3 rounded-lg text-sm text-center">
                   {error}
@@ -174,13 +176,27 @@ const RegisterPage = () => {
                 <label className="text-sm font-medium text-gray-400 ml-1">Full Name</label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                  <input 
-                    type="text" 
-                    required 
-                    className="input-field pl-12" 
+                  <input
+                    type="text"
+                    required
+                    className="input-field pl-12"
                     placeholder="Juan Dela Cruz"
                     value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2 md:col-span-2">
+                <label className="text-sm font-medium text-gray-400 ml-1">Company Name (Optional)</label>
+                <div className="relative">
+                  <Building className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                  <input
+                    type="text"
+                    className="input-field pl-12"
+                    placeholder="CND Upraze"
+                    value={formData.company_name}
+                    onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
                   />
                 </div>
               </div>
@@ -189,13 +205,13 @@ const RegisterPage = () => {
                 <label className="text-sm font-medium text-gray-400 ml-1">Email Address</label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                  <input 
-                    type="email" 
-                    required 
-                    className="input-field pl-12" 
+                  <input
+                    type="email"
+                    required
+                    className="input-field pl-12"
                     placeholder="juan@email.com"
                     value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   />
                 </div>
               </div>
@@ -205,13 +221,13 @@ const RegisterPage = () => {
                   <label className="text-sm font-medium text-gray-400 ml-1">Password</label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                    <input 
-                      type="password" 
-                      required 
-                      className="input-field pl-12" 
+                    <input
+                      type="password"
+                      required
+                      className="input-field pl-12"
                       placeholder="••••••••"
                       value={formData.password}
-                      onChange={(e) => setFormData({...formData, password: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     />
                   </div>
                 </div>
@@ -233,12 +249,12 @@ const RegisterPage = () => {
                 </div>
               </div>
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={loading}
                 className="btn-primary w-full py-4 flex items-center justify-center gap-2 text-lg md:col-span-2 mt-4 disabled:opacity-50"
               >
-                {loading ? <RefreshCcw className="w-5 h-5 animate-spin" /> : <UserPlus className="w-5 h-5" />} 
+                {loading ? <RefreshCcw className="w-5 h-5 animate-spin" /> : <UserPlus className="w-5 h-5" />}
                 {loading ? 'Creating Account...' : 'Get Started'}
               </button>
             </form>
@@ -255,7 +271,7 @@ const RegisterPage = () => {
             </p>
           </motion.div>
         ) : (
-          <motion.div 
+          <motion.div
             key="verify"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -269,7 +285,7 @@ const RegisterPage = () => {
               </div>
               <h2 className="text-3xl font-black font-outfit uppercase tracking-tight mb-2">Check Your Email</h2>
               <p className="text-gray-500 font-medium tracking-tight mb-8">
-                We've sent a verification link to <span className="text-white font-bold">{formData.email}</span>. 
+                We've sent a verification link to <span className="text-white font-bold">{formData.email}</span>.
                 Please click the button in the email to activate your account.
               </p>
 
@@ -290,7 +306,7 @@ const RegisterPage = () => {
               )}
 
               <div className="space-y-4">
-                <a 
+                <a
                   href={`https://mail.google.com/mail/u/0/#search/from%3A(CND+Upraze)+verification`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -303,7 +319,7 @@ const RegisterPage = () => {
                   {timer > 0 ? (
                     <p className="text-gray-500">Resend email in <span className="text-white font-bold">{timer}s</span></p>
                   ) : (
-                    <button 
+                    <button
                       onClick={handleRegister}
                       className="text-primary-500 font-bold hover:text-primary-400 transition-colors flex items-center gap-2"
                     >
@@ -314,7 +330,7 @@ const RegisterPage = () => {
               </div>
             </div>
 
-            <button 
+            <button
               onClick={() => setStep('register')}
               className="mt-10 text-gray-500 hover:text-white transition-colors flex items-center justify-center gap-2 mx-auto text-sm"
             >
@@ -324,10 +340,10 @@ const RegisterPage = () => {
         )}
       </AnimatePresence>
 
-      <LegalModal 
-        isOpen={legalModal.isOpen} 
-        type={legalModal.type} 
-        onClose={() => setLegalModal({ ...legalModal, isOpen: false })} 
+      <LegalModal
+        isOpen={legalModal.isOpen}
+        type={legalModal.type}
+        onClose={() => setLegalModal({ ...legalModal, isOpen: false })}
       />
     </div>
   );

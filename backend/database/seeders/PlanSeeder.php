@@ -10,71 +10,42 @@ class PlanSeeder extends Seeder
     public function run(): void
     {
         $plans = [
-            // Tier 1 — Prebuilt / Template Systems
             [
-                'name' => 'Package 1A',
-                'slug' => 'package-1a',
+                'name' => 'Package A',
+                'slug' => 'package-a',
                 'price' => 3500.00,
                 'features' => [
-                    'tier' => 'prebuilt',
-                    'feature_count' => 1,
-                    'custom_branding' => false,
-                    'customization' => false,
-                    'domain_hosting' => true,
-                    'maintenance' => true,
+                    'Best for small startups and basic operations',
+                    '1 core feature of choice',
+                    'Basic setup and support',
+                    'Cloud-based access',
+                    'Options: QR Implementation, Basic Forecasting, AI Chatbot, 3D Viewer'
                 ],
             ],
             [
-                'name' => 'Package 1B',
-                'slug' => 'package-1b',
-                'price' => 6500.00,
+                'name' => 'Package B',
+                'slug' => 'package-b',
+                'price' => 10500.00,
                 'features' => [
-                    'tier' => 'prebuilt',
-                    'feature_count' => '2-3',
-                    'custom_branding' => false,
-                    'customization' => false,
-                    'domain_hosting' => true,
-                    'maintenance' => true,
+                    'Designed for growing businesses needing advanced operational tools',
+                    'Up to 3 features of choice',
+                    'Priority support',
+                    'System customization',
+                    'Analytics dashboard',
+                    'Options: AI Chatbot/Report, AI-Assisted Forecasting, QR Ordering, Image Recognition, 3D Viewer'
                 ],
             ],
             [
-                'name' => 'Package 1C',
-                'slug' => 'package-1c',
-                'price' => 12000.00,
+                'name' => 'Package C',
+                'slug' => 'package-c',
+                'price' => 18000.00,
                 'features' => [
-                    'tier' => 'prebuilt',
-                    'feature_count' => '4-5',
-                    'custom_branding' => false,
-                    'customization' => false,
-                    'domain_hosting' => true,
-                    'maintenance' => true,
-                ],
-            ],
-            // Tier 2 — Custom Systems with Full Branding
-            [
-                'name' => 'Package 2A',
-                'slug' => 'package-2a',
-                'price' => 22000.00,
-                'features' => [
-                    'tier' => 'custom',
-                    'feature_count' => '2-3',
-                    'custom_branding' => true,
-                    'customization' => true,
-                    'domain_hosting' => true,
-                    'maintenance' => true,
-                ],
-            ],
-            [
-                'name' => 'Package 2B',
-                'slug' => 'package-2b',
-                'price' => 40000.00,
-                'features' => [
-                    'tier' => 'custom',
-                    'feature_count' => '4-5',
-                    'custom_branding' => true,
-                    'customization' => true,
-                    'domain_hosting' => true,
-                    'maintenance' => true,
+                    'For large establishments requiring highly customized systems',
+                    'Up to 5 integrated features',
+                    'Advanced customization',
+                    'Dedicated technical support',
+                    'Scalable cloud infrastructure',
+                    'Options: AI Chatbot/Report, Adv. Forecasting, QR Access, Image Recognition, 3D Customization'
                 ],
             ],
         ];

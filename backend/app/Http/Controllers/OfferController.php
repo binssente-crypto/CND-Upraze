@@ -14,7 +14,7 @@ class OfferController extends Controller
 
     public function store(Request $request)
     {
-        if ($request->user()->role !== 'admin') {
+        if (!in_array($request->user()->role, ['admin', 'superadmin'])) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
@@ -41,7 +41,7 @@ class OfferController extends Controller
 
     public function update(Request $request, Offer $offer)
     {
-        if ($request->user()->role !== 'admin') {
+        if (!in_array($request->user()->role, ['admin', 'superadmin'])) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
@@ -61,7 +61,7 @@ class OfferController extends Controller
 
     public function destroy(Request $request, Offer $offer)
     {
-        if ($request->user()->role !== 'admin') {
+        if (!in_array($request->user()->role, ['admin', 'superadmin'])) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 

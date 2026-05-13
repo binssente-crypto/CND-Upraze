@@ -77,4 +77,14 @@ class AIAssistantController extends Controller
     {
         return $conversation;
     }
+
+    public function destroy(Request $request, $id)
+    {
+        $conversation = \App\Models\AiConversation::findOrFail($id);
+        if ($conversation->user_id !== $request->user()->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+        $conversation->delete();
+        return response()->json(['message' => 'Deleted']);
+    }
 }

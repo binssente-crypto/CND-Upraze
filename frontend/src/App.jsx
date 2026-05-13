@@ -7,6 +7,7 @@ import DashboardLayout from './layouts/DashboardLayout'
 import DashboardHome from './pages/Dashboard/DashboardHome'
 import Modules from './pages/Dashboard/Modules'
 import BillingPage from './pages/Dashboard/BillingPage'
+import PlanOverview from './pages/Dashboard/PlanOverview'
 import AdminDashboard from './pages/Admin/AdminDashboard'
 import AdminOverview from './pages/Admin/AdminOverview'
 import DevDebugger from './pages/Dashboard/DevDebugger'
@@ -18,6 +19,7 @@ import QRCodeManagement from './pages/Features/QRCodeManagement'
 import SupportCenter from './pages/Support/SupportCenter'
 import AdminInquiries from './pages/Admin/AdminInquiries'
 import OfferManagement from './pages/Admin/OfferManagement'
+import AdminOrders from './pages/Admin/AdminOrders'
 
 import { Navigate, Outlet } from 'react-router-dom'
 
@@ -57,8 +59,10 @@ function App() {
           <Route path="admin/overview" element={<AdminOverview />} />
           <Route path="admin/users" element={<AdminDashboard />} />
           <Route path="admin/offers" element={<OfferManagement />} />
+          <Route path="admin/orders" element={<AdminOrders />} />
           <Route path="admin/inquiries" element={<AdminInquiries />} />
           <Route path="modules" element={<Modules />} />
+          <Route path="plan-overview" element={<PlanOverview />} />
           <Route path="billing" element={<BillingPage />} />
           <Route path="debug" element={<DevDebugger />} />
           <Route path="ai-assistant" element={<AIAssistant />} />
