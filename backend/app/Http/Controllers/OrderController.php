@@ -49,8 +49,9 @@ class OrderController extends Controller
                 $amount = 10000; // default 10k PHP
                 if ($order->offer_id) {
                     $offer = \App\Models\Offer::find($order->offer_id);
-                    if ($offer && $offer->price > 0) {
-                        $amount = $offer->price;
+                    if ($offer && $offer->price) {
+                        // Strip commas in case admin entered "3,500" format
+                        $amount = (float) str_replace(',', '', $offer->price);
                     }
                 }
 
