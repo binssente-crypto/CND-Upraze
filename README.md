@@ -80,7 +80,13 @@ flowchart TD
 
 ## Transaction Process Flowchart
 
-The following diagram illustrates the complete user transaction flow — from initial visit on the CND Upraze landing page through authentication, package selection, payment processing via Xendit, and order fulfillment.
+Here is a quick breakdown of how clients buy services on our platform:
+
+When a new client visits the CND Upraze website, they need to create an account and verify their email using an OTP before they can access the dashboard. Returning clients just log in with their normal credentials.
+
+Once inside, they can browse our different service packages. When they find the right fit, they select it and fill out a quick form with their company details. Instead of asking for money right away, the platform saves the order as pending. This gives our team a chance to review the request first.
+
+If the project looks good, an admin approves the order from the dashboard. The moment they hit approve, the system creates a secure Xendit invoice and sends the payment link directly to the client's support inbox. The client clicks the link to pay, and Xendit pings our backend to confirm the money went through. After that, we automatically shoot the client an email receipt and move their project over to the processing stage.
 
 ```mermaid
 flowchart TD

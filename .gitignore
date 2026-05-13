@@ -43,3 +43,5 @@ Homestead.yaml
 *.csv
 *.xlsx
 temp.json
+
+humanlike_writing_skill.md

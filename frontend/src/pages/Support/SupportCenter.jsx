@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Plus, MessageSquare, X, User, ShieldCheck, Search, Clock, CheckCircle } from 'lucide-react';
+import { Send, Plus, MessageSquare, X, User, ShieldCheck, Search, Clock, CheckCircle, Headphones } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -87,7 +87,7 @@ const SupportCenter = () => {
       <div className="w-80 flex flex-col glass-card overflow-hidden">
         <div className="p-4 border-b border-dark-border flex items-center justify-between bg-white/5">
           <h2 className="font-bold flex items-center gap-2">
-            <MessageSquare className="w-5 h-5 text-primary-500" /> My Inquiries
+            <Headphones className="w-5 h-5 text-primary-500" /> My Inquiries
           </h2>
           <button onClick={() => setIsNewModalOpen(true)} className="p-2 bg-primary-600 rounded-lg hover:bg-primary-500 transition-colors shadow-lg shadow-primary-500/20">
             <Plus className="w-4 h-4" />
@@ -105,7 +105,6 @@ const SupportCenter = () => {
               className={`w-full p-4 border-b border-dark-border text-left transition-all hover:bg-white/5 ${selectedId === t.id ? 'bg-primary-600/10 border-r-2 border-r-primary-500' : ''}`}>
               <div className="flex justify-between items-start mb-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm">{getCategoryIcon(t.category)}</span>
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${getStatusColor(t.status)}`}>{t.status}</span>
                 </div>
                 {t.unread_count > 0 && <span className="w-5 h-5 bg-primary-500 rounded-full text-[10px] font-bold flex items-center justify-center">{t.unread_count}</span>}
@@ -124,9 +123,6 @@ const SupportCenter = () => {
           <>
             <div className="p-6 border-b border-dark-border flex justify-between items-center bg-white/5">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-dark-bg border border-dark-border rounded-xl flex items-center justify-center">
-                  <span className="text-lg">{getCategoryIcon(activeThread.category)}</span>
-                </div>
                 <div>
                   <h3 className="font-bold text-gray-100">{activeThread.subject}</h3>
                   <p className="text-xs text-gray-500">Thread #{activeThread.id} • {activeThread.category?.replace('_', ' ')}</p>
